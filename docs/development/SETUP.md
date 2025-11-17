@@ -1,129 +1,81 @@
-# Development Environment Setup
+# Development Setup
 
-## Hardware Requirements
+**Last Updated:** 2025-11-17
 
-- Linux development machine (recommended) or Windows with WSL
-- USB port for connecting dongle
-- Target boards (i.MX8M Mini, i.MX93) for testing
+## Prerequisites
 
-## Software Dependencies
+- **Python:** 3.10+ (for KiCAD MCP)
+- **KiCAD:** 9.0+ recommended (includes `kicad-cli`)
+- **Git:** For version control
 
-### Required
+## KiCAD Installation
 
-- **Git** - Version control
-- **Python 3.8+** - For development tools
-- **libftdi** - FTDI device library
-  ```bash
-  # Ubuntu/Debian
-  sudo apt-get install libftdi1-dev
-  
-  # Or build from source
-  ```
+### Install Latest Stable (KiCAD 9.0+)
 
-- **OpenOCD** - For debugging support
-  ```bash
-  # Ubuntu/Debian
-  sudo apt-get install openocd
-  ```
-
-### Optional
-
-- **KiCad** - For hardware design
-  ```bash
-  # Ubuntu/Debian
-  sudo apt-get install kicad
-  
-  # Verify installation
-  kicad --version  # Note: This command doesn't work (times out) - use `which kicad` instead
-  ```
-  
-  See `docs/development/KICAD_WORKFLOW.md` for detailed setup and workflow guide.
-  See `docs/development/KICAD_QUICK_START.md` for quick start checklist.
-
-- **pyftdi** - Python FTDI library
-  ```bash
-  pip install pyftdi
-  ```
-
-- **pyserial** - Serial communication
-  ```bash
-  pip install pyserial
-  ```
-
-## Development Tools
-
-### FTDI Device Access
-
-On Linux, ensure user has access to FTDI devices:
-```bash
-# Add user to dialout group
-sudo usermod -a -G dialout $USER
-# Log out and back in for changes to take effect
-```
-
-### Testing FTDI Devices
+**Required for:** Schematic design, PCB layout, automated PDF export
 
 ```bash
-# List FTDI devices
-lsusb | grep FTDI
-
-# Test with libftdi
-ftdi_eeprom --help
+sudo snap install kicad
 ```
 
-## Project Setup
+**Verify installation:**
+```bash
+export PATH="/snap/bin:$PATH"
+kicad-cli --version
+# Should show KiCAD 9.0.x or later
+```
 
-1. Clone the repository:
-   ```bash
-   git clone git@github.com:DynamicDevices/esl-dut-dongle.git
-   cd esl-dut-dongle
-   ```
+**Note:** KiCAD 7.0+ includes `kicad-cli` for command-line automation. Older versions (6.0.x) require manual GUI export.
 
-2. Review documentation:
-   - Start with [README.md](../README.md)
-   - Review [PROJECT_REFERENCE.md](../requirements/PROJECT_REFERENCE.md)
+### Accessing KiCAD
 
-3. Set up development environment:
-   ```bash
-   # Create virtual environment (if using Python)
-   python3 -m venv venv
-   source venv/bin/activate
-   
-   # Install dependencies (when requirements.txt is added)
-   pip install -r requirements.txt
-   ```
+**GUI Applications:**
+```bash
+kicad          # Project manager
+eeschema       # Schematic editor
+pcbnew         # PCB editor
+```
 
-## Building from Source
+**Command Line Tool:**
+```bash
+export PATH="/snap/bin:$PATH"
+kicad-cli --version
+kicad-cli sch export pdf <schematic> -o <output.pdf>
+```
 
-### Hardware
-- Use KiCad to open schematic/PCB files
-- Follow design guidelines in [DESIGN_GUIDELINES.md](DESIGN_GUIDELINES.md)
-- Export Gerber files for manufacturing
+### Updating KiCAD
 
-### Software
-- Follow language-specific build instructions
-- See `firmware/README.md` for specific build steps
+```bash
+sudo snap refresh kicad
+```
 
-## Troubleshooting
+Snap packages auto-update, but you can manually refresh to get the latest version.
 
-### FTDI Device Not Found
-- Check USB connection
-- Verify udev rules (Linux)
-- Check device permissions
+## KiCAD MCP Server (Optional)
 
-### Permission Denied
-- Add user to dialout group (Linux)
-- Check USB permissions
-- Use sudo if necessary (not recommended for development)
+For AI-assisted KiCAD workflow:
 
-## IDE Setup
+```bash
+bash scripts/install_kicad_mcp.sh
+```
 
-### VS Code
-- Install Python extension
-- Install KiCad extension (for hardware files)
-- Configure debugger for firmware development
+See `docs/development/KICAD.md` for MCP usage.
 
-### Other IDEs
-- Follow standard setup for your preferred IDE
-- Ensure proper language support
+## Google Docs Export (Optional)
 
+For design spec collaboration:
+
+```bash
+export GOOGLE_DOC_ID='your-document-id'
+python3.10 scripts/export_google_doc.py
+```
+
+See `scripts/README.md` for details.
+
+## Project Structure
+
+- `hardware/schematics/` - Schematic design (KiCAD)
+- `hardware/pcb/` - PCB layout (KiCAD)
+- `docs/requirements/` - Design specifications
+- `docs/development/` - Development guides
+- `scripts/` - Utility scripts

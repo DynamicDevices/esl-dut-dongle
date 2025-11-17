@@ -2,111 +2,84 @@
 
 USB dongle for automating development board control, programming, and testing of NXP i.MX8M Mini and i.MX93 boards.
 
-## Project Overview
+## Overview
 
-This project aims to create a USB dongle that provides:
-- **2x UART interfaces** for serial communication
-- **5x GPIO outputs** (4 for boot mode control, 1 for reset)
-- **Power monitoring** (down to microamp or nanoamp levels)
-- Easy USB control from Linux and Windows without custom driver development
+The ESL DUT Dongle provides:
+- **4 UART Channels** - Full-duplex serial communication
+- **GPIO Control** - Boot mode and reset control
+- **Power Monitoring** - Current and voltage measurement via I2C
+- **USB-C Interface** - Host connection
 
-## Quick Start
+## Design Specification
 
-- **Requirements:** See [docs/requirements/PROJECT_REFERENCE.md](docs/requirements/PROJECT_REFERENCE.md)
-- **Research Findings:** See [docs/research/RESEARCH_FINDINGS.md](docs/research/RESEARCH_FINDINGS.md)
-- **BOM and Costs:** See [docs/bom/BOM_AND_COSTS.md](docs/bom/BOM_AND_COSTS.md)
+**Complete design decisions:** `docs/requirements/DESIGN_SPEC.md`
 
-## Project Status
+### Key Components
 
-- **Phase:** Research and evaluation
-- **Status:** Active development
-- **Last Updated:** November 2024
+- **USB Bridge:** FTDI FT4232H (4 UARTs + GPIO)
+- **Power Monitor:** INA219 (1μA minimum measurement)
+- **Shunt Resistor:** 0.01Ω (10mΩ)
+- **Connector:** USB Type-C
+- **Target Interface:** 2.54mm pitch headers
 
-## Documentation
-
-### Requirements and Specifications
-- [Project Reference](docs/requirements/PROJECT_REFERENCE.md) - Requirements and specifications
-
-### Research
-- [Research Findings](docs/research/RESEARCH_FINDINGS.md) - Comprehensive research on implementation options
-- [CP2108 Deep Dive](docs/research/CP2108_DEEP_DIVE.md) - CP2108 investigation and open-source hardware research
-- [Open Source Projects](docs/research/OPEN_SOURCE_PROJECTS.md) - Starting point projects (Tigard, Bus Pirate, etc.)
-
-### Power Monitoring
-- [Power Monitoring Integration](docs/power-monitoring/POWER_MONITORING.md) - Power monitoring analysis (INA219, INA228, nanoamp measurement)
-
-### Bill of Materials
-- [BOM and Costs](docs/bom/BOM_AND_COSTS.md) - Detailed bill of materials and cost analysis
-- [Supplier Availability](docs/bom/SUPPLIER_AVAILABILITY.md) - Supplier research and availability
-
-## Key Recommendations
-
-**Primary Solution:** FTDI FT2232H or FT4232H
-- Excellent Linux support via libftdi
-- Well-documented and proven solution
-- Strong open-source community support
-- Integration with OpenOCD for debugging
-
-**Power Monitoring:** INA219 (μA) or INA228 (nA)
-- Low cost (<$3-4 additional)
-- I2C interface via FTDI MPSSE
-- Good accuracy for development work
-
-**Starting Point:** Tigard project
-- Uses FT2232H (perfect match)
-- Complete open-source hardware and software
-- Active project with community support
-
-## Integration with Development Tools
-
-### OpenOCD Support
-- FTDI FT2232H/FT4232H supports OpenOCD via MPSSE
-- Enables JTAG/SWD debugging
-- Console I/O via UART interfaces
-- Proven integration (used in Tigard, Bus Pirate)
-
-### Power Monitoring Tools
-- Integration with open-source power monitoring tools
-- Python/C++ libraries for INA219/INA228
-- CSV export for analysis
-- Real-time monitoring capabilities
-
-## Repository Structure
+## Project Structure
 
 ```
 esl-dut-dongle/
-├── README.md                 # This file
-├── docs/                     # Documentation
-│   ├── requirements/         # Project requirements
-│   ├── research/             # Research documents
-│   ├── power-monitoring/     # Power monitoring analysis
-│   └── bom/                  # Bill of materials
-├── hardware/                 # Hardware design files (future)
-│   ├── schematics/
-│   ├── pcb/
-│   └── 3d-models/
-├── firmware/                 # Firmware/software (future)
-│   ├── drivers/
-│   └── tools/
-└── LICENSE                   # License file (future)
+├── docs/
+│   ├── requirements/
+│   │   └── DESIGN_SPEC.md      # Complete design specification
+│   └── development/
+│       ├── SETUP.md            # Development setup
+│       └── KICAD.md            # KiCAD workflow
+├── hardware/
+│   ├── schematics/             # Schematic design
+│   ├── pcb/                    # PCB layout
+│   ├── bom/                    # Bill of Materials
+│   └── archive/                # Archived projects
+└── scripts/                     # Utility scripts
 ```
 
-## Contributors
+## Quick Start
 
-- Alex Lennon
-- Michael Hull
+### For Hardware Engineers
 
-## Development
+1. **Review Design Specification:**
+   ```bash
+   cat docs/requirements/DESIGN_SPEC.md
+   ```
 
-- [Development Roadmap](docs/development/ROADMAP.md) - Project milestones and timeline
-- [Setup Instructions](docs/development/SETUP.md) - Development environment setup
-- [Design Guidelines](docs/development/DESIGN_GUIDELINES.md) - Hardware design best practices
-- [Testing Guidelines](docs/development/TESTING.md) - Testing procedures and requirements
+2. **Setup Development Environment:**
+   ```bash
+   # Install KiCAD 9.0+
+   sudo snap install kicad
+   
+   # See docs/development/SETUP.md for details
+   ```
 
-## Contributing
+3. **Open Schematic:**
+   ```bash
+   cd hardware/schematics/esl-dut-dongle
+   kicad esl-dut-dongle.kicad_pro
+   ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to this project.
+### For Software Engineers
+
+See firmware documentation (when available).
+
+## Documentation
+
+- **Design Specification:** `docs/requirements/DESIGN_SPEC.md` - Complete design decisions
+- **Development Setup:** `docs/development/SETUP.md` - KiCAD installation and setup
+- **KiCAD Workflow:** `docs/development/KICAD.md` - Schematic and PCB workflow
+- **Bill of Materials:** `docs/bom/BOM_AND_COSTS.md` - Component costs
+
+## Status
+
+**Current:** Design specification complete, ready for schematic design
+
+**Next:** Install KiCAD 9.0+, create schematic, PCB layout, prototype build
 
 ## License
 
-This project is proprietary software. All rights reserved. See the [LICENSE](LICENSE) file for details.
+Proprietary - All rights reserved by Active Edge Solutions
