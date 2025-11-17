@@ -466,6 +466,10 @@ This document contains questions that should be answered before creating the det
 
 
 
+Answer: **B) Linux and Windows (Mac too if there is no major issue supporting)
+**
+**
+**
 ---
 
 
@@ -508,7 +512,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm language support requirements.
 
-
+Answer: Python, C/C++ and Rust. Command line tool support for easy of use by technicians and ease of automation is critical. The specifics of the language are less critical
 
 ---
 
@@ -552,6 +556,8 @@ This document contains questions that should be answered before creating the det
 
 
 
+Answer: Cross platform command line tools are critical. Ideally we will leverage existing tools such as OpenOCD. Graphical interfaces are useful for power monitoring, e.g. graphs. And Jupyter integration will be helpful too, eg for controlling power modes and monitoring usage.
+
 ---
 
 
@@ -593,6 +599,8 @@ This document contains questions that should be answered before creating the det
 ****Decision Required:**** Confirm OpenOCD integration requirements.
 
 
+
+Answer: Full is preferable  unless it causes us huge problems.
 
 ---
 
@@ -638,7 +646,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm which tools are priority for integration.
 
-
+Answer: C Both
 
 ---
 
@@ -729,6 +737,8 @@ This document contains questions that should be answered before creating the det
 
 
 ****Decision Required:**** Confirm initial target board support.
+
+Answer: D both plus future boards
 
 
 
@@ -866,7 +876,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm target cost per unit.
 
-
+Answer: D Cost is not a primary concern as these are debugging tools
 
 ---
 
@@ -910,7 +920,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm initial production quantity.
 
-
+Answer: A prototype / small batch
 
 ---
 
@@ -1002,7 +1012,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm available test equipment.
 
-
+Answer: C Comprehensive
 
 ---
 
@@ -1046,7 +1056,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Define testing requirements and procedures.
 
-
+Answer - It’s a development tool. We need it to work but it’s for internal use so Basic functional testing to minimal testing. It does not need to be comprehensively tested for custom use at this time
 
 ---
 
@@ -1094,7 +1104,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm documentation requirements.
 
-
+Answer: A to B - Mostly AI generated with engineering oversight. Again this is for internal use  
 
 ---
 
@@ -1142,7 +1152,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm primary use cases and priorities.
 
-
+D - all of the above
 
 ---
 
@@ -1186,7 +1196,7 @@ This document contains questions that should be answered before creating the det
 
 ****Decision Required:**** Confirm automation requirements.
 
-
+C - Both
 
 ---
 

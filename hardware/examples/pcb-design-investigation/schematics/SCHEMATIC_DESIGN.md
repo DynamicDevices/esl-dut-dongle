@@ -8,9 +8,30 @@ The actual hardware design will be created in `hardware/schematics/` once the de
 
 ## Design Overview
 
-This document describes an example schematic design for the ESL DUT dongle based on initial assumptions. It is used to explore PCB design workflows and documentation approaches.
+This document describes an example schematic design for the ESL DUT dongle based on initial assumptions and partial answers from the design specification questionnaire. It is used to explore PCB design workflows and documentation approaches.
 
-**Current Assumptions:**
+**Current Assumptions (Based on Partial Answers):**
+
+### Confirmed from Questionnaire Answers:
+- **Target Boards:** i.MX8M Mini, i.MX93, plus future boards (Q16 - Alex)
+- **Use Cases:** All use cases supported - automated flashing, power profiling, debugging (Q25 - Alex)
+- **Cost:** Not primary concern - functionality prioritized (Q19 - Alex)
+- **Production:** 10-50 units prototype/small batch (Q20 - Alex)
+- **Testing:** Basic functional testing (Q23 - Alex)
+
+### Still Pending (Hardware - Michael):
+- FTDI FT2232H vs FT4232H (Q1, Q2)
+- INA219 vs INA228 (Q3)
+- USB connector type (Q6)
+- Target board connector type (Q7, Q8)
+- Enclosure requirements (Q9)
+- Shunt resistor configuration (Q5)
+
+### Still Pending (Third Party):
+- Boot mode pin requirements (Q17 - needs NXP datasheet verification)
+- Voltage levels (Q18 - needs NXP datasheet verification)
+
+### Example Design Assumptions (for investigation):
 - FTDI FT2232H (2 UARTs + GPIO via MPSSE)
 - INA228 power monitoring IC (nanoamp capability)
 - USB Type-C connector
