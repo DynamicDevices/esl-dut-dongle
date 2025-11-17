@@ -13,34 +13,27 @@ The KiCAD MCP server has been installed at:
 
 **Linux:**
 ```
-~/.config/Cursor/mcp.json
-```
-
-**Alternative locations to check:**
-```
 ~/.cursor/mcp.json
-~/.config/cursor/mcp.json
 ```
 
-### Create Configuration File
+**Important:** Cursor uses `~/.cursor/mcp.json`, NOT `~/.config/Cursor/mcp.json`
 
-Create or edit the MCP configuration file:
+### Configuration File
 
+The MCP configuration file is located at:
 ```bash
-# Create directory if it doesn't exist
-mkdir -p ~/.config/Cursor
-
-# Edit/create configuration file
-nano ~/.config/Cursor/mcp.json
+~/.cursor/mcp.json
 ```
 
-### Configuration Content
+### Current Configuration
 
-Add the following JSON configuration:
+The KiCAD MCP server has been added to your existing Cursor MCP configuration:
 
 ```json
 {
   "mcpServers": {
+    "GitKraken": { ... },
+    "lab-testing": { ... },
     "kicad": {
       "command": "/home/ajlennon/tools/kicad-mcp/.venv/bin/python",
       "args": [
@@ -54,25 +47,16 @@ Add the following JSON configuration:
 }
 ```
 
-### Verify Paths
+### Verify Configuration
 
-**Python Path:**
+**Check configuration file:**
 ```bash
-ls -la ~/tools/kicad-mcp/.venv/bin/python
-# Should exist and be executable
+cat ~/.cursor/mcp.json | python3 -m json.tool
 ```
 
-**Main Script:**
+**Verify paths:**
 ```bash
-ls -la ~/tools/kicad-mcp/main.py
-# Should exist
-```
-
-**Test Server Manually:**
-```bash
-cd ~/tools/kicad-mcp
-source .venv/bin/activate
-python main.py --help
+ls -la ~/tools/kicad-mcp/.venv/bin/python ~/tools/kicad-mcp/main.py
 ```
 
 ## After Configuration
@@ -97,8 +81,8 @@ The server should start and wait for MCP client connections.
 
 After configuring and restarting Cursor, try:
 - "List KiCAD projects in my workspace"
-- "Create a new KiCAD schematic"
 - "Show me KiCAD files in the hardware directory"
+- "Create a new KiCAD schematic"
 
 ## Troubleshooting
 
@@ -106,7 +90,7 @@ After configuring and restarting Cursor, try:
 
 1. **Check configuration file syntax:**
    ```bash
-   python3 -m json.tool ~/.config/Cursor/mcp.json
+   python3 -m json.tool ~/.cursor/mcp.json
    ```
 
 2. **Verify paths are absolute:**
@@ -148,6 +132,16 @@ chmod +x ~/tools/kicad-mcp/.venv/bin/python
 chmod +r ~/tools/kicad-mcp/main.py
 ```
 
+### Configuration File Location
+
+**Important:** Cursor uses `~/.cursor/mcp.json` on Linux, not `~/.config/Cursor/mcp.json`
+
+If you created a config in the wrong location, move it:
+```bash
+# If you created ~/.config/Cursor/mcp.json, merge it with ~/.cursor/mcp.json
+# The correct location is ~/.cursor/mcp.json
+```
+
 ## Alternative Configuration Methods
 
 ### Using Environment Variables
@@ -178,8 +172,8 @@ The server will also read from `~/tools/kicad-mcp/.env` if environment variables
 1. ✅ KiCAD MCP server installed
 2. ✅ Dependencies installed
 3. ✅ .env file configured
-4. **Configure Cursor MCP** (create `~/.config/Cursor/mcp.json`)
-5. **Restart Cursor**
+4. ✅ **Cursor MCP configured** (added to `~/.cursor/mcp.json`)
+5. **Restart Cursor** (required!)
 6. **Test MCP functionality**
 
 ## Resources
@@ -187,4 +181,3 @@ The server will also read from `~/tools/kicad-mcp/.env` if environment variables
 - **KiCAD MCP Repository:** https://github.com/lamaalrajih/kicad-mcp
 - **Installation Guide:** `docs/development/KICAD_MCP_SETUP.md`
 - **MCP Documentation:** https://modelcontextprotocol.io/
-
