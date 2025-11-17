@@ -96,6 +96,17 @@ esl-dut-dongle/
 - Alex Lennon
 - Michael Hull
 
+## Development
+
+- [Development Roadmap](docs/development/ROADMAP.md) - Project milestones and timeline
+- [Setup Instructions](docs/development/SETUP.md) - Development environment setup
+- [Design Guidelines](docs/development/DESIGN_GUIDELINES.md) - Hardware design best practices
+- [Testing Guidelines](docs/development/TESTING.md) - Testing procedures and requirements
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to this project.
+
 ## License
 
-TBD
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
