@@ -31,12 +31,13 @@ This document describes an example schematic design for the ESL DUT dongle based
 - Boot mode pin requirements (Q17 - needs NXP datasheet verification)
 - Voltage levels (Q18 - needs NXP datasheet verification)
 
-### Example Design Assumptions (for investigation):
-- FTDI FT2232H (2 UARTs + GPIO via MPSSE)
-- INA228 power monitoring IC (nanoamp capability)
+### Provisional Design Assumptions (for investigation - pending Michael's confirmation):
+- **FTDI FT4232H** (4 UARTs + GPIO via MPSSE) - Provisional
+- **Dual-Range Power Monitoring:** Both INA219 (μA range) and INA228 (nA range) - Provisional
 - USB Type-C connector
 - 2.54mm pitch headers for target board connection
 - 4-layer PCB (for guarding/shielding of power monitoring)
+- Dual shunt resistors (0.1Ω for active mode, 10Ω for sleep mode)
 
 ## Block Diagram
 
@@ -52,15 +53,19 @@ This document describes an example schematic design for the ESL DUT dongle based
 │         │ USB 2.0                                            │
 │         │                                                     │
 │  ┌──────▼──────────────────────────────────────┐            │
-│  │         FTDI FT2232H                          │            │
+│  │         FTDI FT4232H                          │            │
 │  │  - Channel A: UART1                          │            │
 │  │  - Channel B: UART2                          │            │
+│  │  - Channel C: UART3                          │            │
+│  │  - Channel D: UART4                          │            │
 │  │  - MPSSE: GPIO (5 pins: 4 boot + 1 reset)   │            │
 │  │  - I2C: Power monitor interface              │            │
 │  └──────┬──────────────────────────────────────┘            │
 │         │                                                     │
 │         ├─── UART1 TX/RX ────────────────┐                   │
 │         ├─── UART2 TX/RX ────────────────┤                   │
+│         ├─── UART3 TX/RX ────────────────┤                   │
+│         ├─── UART4 TX/RX ────────────────┤                   │
 │         ├─── GPIO (5 pins) ──────────────┤                   │
 │         └─── I2C (SCL/SDA) ──────────────┤                   │
 │                                           │                   │
@@ -69,6 +74,8 @@ This document describes an example schematic design for the ESL DUT dongle based
 │  │              Target Board Connector                   │    │
 │  │  - UART1 TX/RX                                        │    │
 │  │  - UART2 TX/RX                                        │    │
+│  │  - UART3 TX/RX                                        │    │
+│  │  - UART4 TX/RX                                        │    │
 │  │  - Boot Mode GPIO (4 pins)                           │    │
 │  │  - Reset GPIO (1 pin)                                │    │
 │  │  - Power Supply (VDD, GND)                          │    │
@@ -76,14 +83,17 @@ This document describes an example schematic design for the ESL DUT dongle based
 │                                                               │
 │  ┌──────────────────────────────────────────────────────┐    │
 │  │              Power Monitoring Section                   │    │
+│  │              (Dual-Range: INA219 + INA228)             │    │
 │  │                                                         │    │
-│  │  Power Supply ──► [Shunt Resistor] ──► Target Board   │    │
+│  │  Power Supply ──► [Shunt Switch] ──► Target Board      │    │
 │  │                      │                                   │    │
-│  │                      ▼                                   │    │
-│  │                 INA228                                  │    │
-│  │                 (I2C)                                   │    │
+│  │                      ├───► [0.1Ω Shunt] ──► INA219     │    │
+│  │                      │      (Active Mode, μA range)    │    │
 │  │                      │                                   │    │
-│  │                      └───► FT2232H I2C                  │    │
+│  │                      └───► [10Ω Shunt] ──► INA228      │    │
+│  │                             (Sleep Mode, nA range)    │    │
+│  │                                                         │    │
+│  │                      I2C Bus ──► FT4232H I2C            │    │
 │  └──────────────────────────────────────────────────────┘    │
 │                                                               │
 └───────────────────────────────────────────────────────────────┘
@@ -95,8 +105,10 @@ This document describes an example schematic design for the ESL DUT dongle based
 
 | Component | Part Number | Function | Package |
 |-----------|-------------|----------|---------|
-| U1 | FT2232H-56Q | USB-to-Dual-UART + MPSSE | QFN-56 |
-| U2 | INA228AIDCNT | Power Monitor IC | MSOP-10 |
+| U1 | FT4232H-56Q | USB-to-Quad-UART + MPSSE | QFN-56 |
+| U2 | INA219BIDCNT | Power Monitor IC (μA range) | MSOP-10 |
+| U3 | INA228AIDCNT | Power Monitor IC (nA range) | MSOP-10 |
+| U4 | (Optional) | Shunt Switch/MUX (for dual-range) | TBD |
 
 ### Power Supply
 
@@ -109,8 +121,10 @@ This document describes an example schematic design for the ESL DUT dongle based
 
 | Component | Part Number | Function | Value |
 |-----------|-------------|----------|-------|
-| R_SHUNT | Shunt resistor | Current sense | 10Ω, 1%, 0.5W |
+| R_SHUNT_ACTIVE | Shunt resistor | Current sense (active mode) | 0.1Ω, 1%, 1W |
+| R_SHUNT_SLEEP | Shunt resistor | Current sense (sleep mode) | 10Ω, 1%, 0.5W |
 | R1-R2 | I2C pull-up | I2C bus pull-up | 10kΩ, 0805 |
+| (Optional) | Shunt switch/MUX | Switch between shunts | TBD |
 
 ### Connectors
 
@@ -128,7 +142,9 @@ This document describes an example schematic design for the ESL DUT dongle based
 
 ## Pin Assignments
 
-### FT2232H (U1) Pin Connections
+### FT4232H (U1) Pin Connections
+
+**Note:** FT4232H has 4 UART channels (A, B, C, D) compared to FT2232H's 2 channels (A, B).
 
 #### USB Interface
 - **VBUS** → USB-C VBUS
@@ -153,22 +169,55 @@ This document describes an example schematic design for the ESL DUT dongle based
 - **BDBUS2/RTS#** → J2 Pin 7 (UART2 RTS, optional)
 - **BDBUS3/CTS#** → J2 Pin 8 (UART2 CTS, optional)
 
-#### GPIO (via MPSSE)
-- **ADBUS4** → J2 Pin 9 (Boot Mode GPIO 0)
-- **ADBUS5** → J2 Pin 10 (Boot Mode GPIO 1)
-- **ADBUS6** → J2 Pin 11 (Boot Mode GPIO 2)
-- **ADBUS7** → J2 Pin 12 (Boot Mode GPIO 3)
-- **BDBUS4** → J2 Pin 13 (Reset GPIO)
+#### Channel C (UART3)
+- **CDBUS0/TXD** → J2 Pin 9 (UART3 TX)
+- **CDBUS1/RXD** → J2 Pin 10 (UART3 RX)
+- **CDBUS2/RTS#** → J2 Pin 11 (UART3 RTS, optional)
+- **CDBUS3/CTS#** → J2 Pin 12 (UART3 CTS, optional)
 
-#### I2C Interface (for Power Monitor)
-- **ADBUS8/SCL** → INA228 SCL (via R1 pull-up)
-- **ADBUS9/SDA** → INA228 SDA (via R2 pull-up)
+#### Channel D (UART4)
+- **DDBUS0/TXD** → J2 Pin 13 (UART4 TX)
+- **DDBUS1/RXD** → J2 Pin 14 (UART4 RX)
+- **DDBUS2/RTS#** → J2 Pin 15 (UART4 RTS, optional)
+- **DDBUS3/CTS#** → J2 Pin 16 (UART4 CTS, optional)
+
+#### GPIO (via MPSSE)
+- **ADBUS4** → J2 Pin 17 (BOOT_MODE_0)
+- **ADBUS5** → J2 Pin 18 (BOOT_MODE_1)
+- **ADBUS6** → J2 Pin 19 (BOOT_MODE_2)
+- **ADBUS7** → J2 Pin 20 (BOOT_MODE_3)
+- **BDBUS4** → J2 Pin 21 (RESET)
+
+#### I2C Interface (for Power Monitors)
+- **ADBUS8/SCL** → I2C_SCL (shared bus for INA219 and INA228, via R1 pull-up)
+- **ADBUS9/SDA** → I2C_SDA (shared bus for INA219 and INA228, via R2 pull-up)
 
 #### Other
 - **OSCI/OSCO** → 12MHz crystal (if external clock needed)
 - **RESET#** → Pull-up resistor, optional reset button
 
-### INA228 (U2) Pin Connections
+### INA219 (U2) Pin Connections - Active Mode (μA Range)
+
+#### Power Supply
+- **V+** → Power supply input (before 0.1Ω shunt)
+- **V-** → Power supply output (after 0.1Ω shunt)
+- **VCC** → 3.3V
+- **GND** → Power GND
+
+#### Current Sense
+- **IN+** → High side of 0.1Ω shunt resistor
+- **IN-** → Low side of 0.1Ω shunt resistor
+
+#### I2C Interface
+- **SCL** → I2C_SCL (via R1 pull-up to 3.3V)
+- **SDA** → I2C_SDA (via R2 pull-up to 3.3V)
+- **ALERT** → Optional interrupt pin
+
+#### Configuration
+- **A0, A1** → I2C address selection (GND or VCC)
+- Default address: 0x40 (A0=A1=GND)
+
+### INA228 (U3) Pin Connections - Sleep Mode (nA Range)
 
 #### Power Supply
 - **V+** → Power supply input (before shunt)
@@ -192,41 +241,56 @@ This document describes an example schematic design for the ESL DUT dongle based
 
 | Pin | Signal | Description | Notes |
 |-----|--------|------------|-------|
-| 1 | UART1_TX | UART1 Transmit | From FT2232H Channel A |
-| 2 | UART1_RX | UART1 Receive | To FT2232H Channel A |
-| 3 | UART1_RTS | UART1 RTS (optional) | From FT2232H Channel A |
-| 4 | UART1_CTS | UART1 CTS (optional) | To FT2232H Channel A |
-| 5 | UART2_TX | UART2 Transmit | From FT2232H Channel B |
-| 6 | UART2_RX | UART2 Receive | To FT2232H Channel B |
-| 7 | UART2_RTS | UART2 RTS (optional) | From FT2232H Channel B |
-| 8 | UART2_CTS | UART2 CTS (optional) | To FT2232H Channel B |
-| 9 | BOOT_MODE_0 | Boot Mode GPIO 0 | FT2232H ADBUS4 |
-| 10 | BOOT_MODE_1 | Boot Mode GPIO 1 | FT2232H ADBUS5 |
-| 11 | BOOT_MODE_2 | Boot Mode GPIO 2 | FT2232H ADBUS6 |
-| 12 | BOOT_MODE_3 | Boot Mode GPIO 3 | FT2232H ADBUS7 |
-| 13 | RESET | Reset GPIO | FT2232H BDBUS4 |
-| 14 | VDD | Power Supply | 3.3V or 5V (TBD) |
-| 15 | GND | Ground | Power GND |
-| 16 | GND | Ground | Power GND |
-| 17 | GND | Ground | Power GND |
-| 18 | GND | Ground | Power GND |
-| 19 | NC | Not Connected | Reserved |
-| 20 | NC | Not Connected | Reserved |
+| 1 | UART1_TX | UART1 Transmit | From FT4232H Channel A |
+| 2 | UART1_RX | UART1 Receive | To FT4232H Channel A |
+| 3 | UART1_RTS | UART1 RTS (optional) | From FT4232H Channel A |
+| 4 | UART1_CTS | UART1 CTS (optional) | To FT4232H Channel A |
+| 5 | UART2_TX | UART2 Transmit | From FT4232H Channel B |
+| 6 | UART2_RX | UART2 Receive | To FT4232H Channel B |
+| 7 | UART2_RTS | UART2 RTS (optional) | From FT4232H Channel B |
+| 8 | UART2_CTS | UART2 CTS (optional) | To FT4232H Channel B |
+| 9 | UART3_TX | UART3 Transmit | From FT4232H Channel C |
+| 10 | UART3_RX | UART3 Receive | To FT4232H Channel C |
+| 11 | UART3_RTS | UART3 RTS (optional) | From FT4232H Channel C |
+| 12 | UART3_CTS | UART3 CTS (optional) | To FT4232H Channel C |
+| 13 | UART4_TX | UART4 Transmit | From FT4232H Channel D |
+| 14 | UART4_RX | UART4 Receive | To FT4232H Channel D |
+| 15 | UART4_RTS | UART4 RTS (optional) | From FT4232H Channel D |
+| 16 | UART4_CTS | UART4 CTS (optional) | To FT4232H Channel D |
+| 17 | BOOT_MODE_0 | Boot Mode GPIO 0 | FT4232H ADBUS4 |
+| 18 | BOOT_MODE_1 | Boot Mode GPIO 1 | FT4232H ADBUS5 |
+| 19 | BOOT_MODE_2 | Boot Mode GPIO 2 | FT4232H ADBUS6 |
+| 20 | BOOT_MODE_3 | Boot Mode GPIO 3 | FT4232H ADBUS7 |
+| 21 | RESET | Reset GPIO | FT4232H BDBUS4 |
+| 22 | VDD | Power Supply | 3.3V or 5V (TBD) |
+| 23 | GND | Ground | Power GND |
+| 24 | GND | Ground | Power GND |
+| 25 | GND | Ground | Power GND |
+| 26 | GND | Ground | Power GND |
+| 27 | NC | Not Connected | Reserved |
+| 28 | NC | Not Connected | Reserved |
 
 ## Power Supply Design
 
 ### USB Power
 - USB Type-C provides 5V VBUS
-- May need 3.3V LDO regulator if FT2232H requires 3.3V
-- Check FT2232H datasheet for VCCIO requirements
+- May need 3.3V LDO regulator if FT4232H requires 3.3V
+- Check FT4232H datasheet for VCCIO requirements
 
-### Power Monitoring Path
+### Power Monitoring Path (Dual-Range)
 ```
-USB VBUS (5V) → [Optional LDO] → VDD (3.3V) → [Shunt Resistor] → Target Board VDD
+USB VBUS (5V) → [Optional LDO] → VDD (3.3V) → [Shunt Switch/MUX] → Target Board VDD
                                                       │
-                                                      ▼
-                                                  INA228
+                                                      ├───► [0.1Ω Shunt] ──► INA219 (Active Mode, μA)
+                                                      │
+                                                      └───► [10Ω Shunt] ──► INA228 (Sleep Mode, nA)
 ```
+
+**Note:** Shunt switching can be implemented via:
+- Manual jumper/switch
+- Analog MUX IC
+- Relay (for isolation)
+- Software-controlled switch (if GPIO available)
 
 ### Decoupling
 - 0.1μF ceramic capacitors near each IC power pin
@@ -240,9 +304,11 @@ USB VBUS (5V) → [Optional LDO] → VDD (3.3V) → [Shunt Resistor] → Target 
 - Pull-up to 3.3V
 - Standard I2C bus configuration
 
-### I2C Address
-- INA228 default address: 0x40 (A0=A1=GND)
-- Can be changed by connecting A0/A1 to VCC
+### I2C Addresses
+- **INA219 (U2):** Default address 0x40 (A0=A1=GND)
+- **INA228 (U3):** Must use different address (e.g., 0x41 by setting A0=VCC, A1=GND)
+- Both devices share same I2C bus (SCL/SDA)
+- Can be changed by connecting A0/A1 to VCC/GND
 
 ## PCB Layout Considerations
 
@@ -275,13 +341,13 @@ USB VBUS (5V) → [Optional LDO] → VDD (3.3V) → [Shunt Resistor] → Target 
 
 ## Design Notes
 
-### Assumptions Made
-1. **FT2232H** selected (may change to FT4232H)
-2. **INA228** selected (may change to INA219)
-3. **USB Type-C** connector (may change to USB Micro-B)
-4. **10Ω shunt** for nanoamp measurements (may need dual shunts)
+### Provisional Assumptions Made (Pending Michael's Confirmation)
+1. **FT4232H** selected (4 UARTs) - Provisional
+2. **Dual-range power monitoring:** Both INA219 and INA228 - Provisional
+3. **Dual shunts:** 0.1Ω for active mode, 10Ω for sleep mode - Provisional
+4. **USB Type-C** connector (may change to USB Micro-B)
 5. **3.3V GPIO** levels (need to verify target board requirements)
-6. **20-pin connector** (may need more pins)
+6. **28-pin connector** (increased from 20-pin due to 4 UARTs)
 
 ### Items Requiring Verification
 - [ ] Target board voltage levels (3.3V vs 1.8V)

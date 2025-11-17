@@ -25,7 +25,9 @@ This document provides an example text-based netlist describing component connec
 - J1.5 (CC1) → (USB-C configuration, may need pull-down)
 - J1.6 (CC2) → (USB-C configuration, may need pull-down)
 
-## FT2232H (U1) Connections
+## FT4232H (U1) Connections
+
+**Note:** FT4232H has 4 UART channels (A, B, C, D) compared to FT2232H's 2 channels.
 
 ### Power
 - U1.VCC → +3V3
@@ -50,12 +52,24 @@ This document provides an example text-based netlist describing component connec
 - U1.BDBUS2 → J2.7 (UART2_RTS) [optional]
 - U1.BDBUS3 → J2.8 (UART2_CTS) [optional]
 
+### Channel C (UART3)
+- U1.CDBUS0 → J2.9 (UART3_TX)
+- U1.CDBUS1 → J2.10 (UART3_RX)
+- U1.CDBUS2 → J2.11 (UART3_RTS) [optional]
+- U1.CDBUS3 → J2.12 (UART3_CTS) [optional]
+
+### Channel D (UART4)
+- U1.DDBUS0 → J2.13 (UART4_TX)
+- U1.DDBUS1 → J2.14 (UART4_RX)
+- U1.DDBUS2 → J2.15 (UART4_RTS) [optional]
+- U1.DDBUS3 → J2.16 (UART4_CTS) [optional]
+
 ### GPIO (Boot Mode & Reset)
-- U1.ADBUS4 → J2.9 (BOOT_MODE_0)
-- U1.ADBUS5 → J2.10 (BOOT_MODE_1)
-- U1.ADBUS6 → J2.11 (BOOT_MODE_2)
-- U1.ADBUS7 → J2.12 (BOOT_MODE_3)
-- U1.BDBUS4 → J2.13 (RESET)
+- U1.ADBUS4 → J2.17 (BOOT_MODE_0)
+- U1.ADBUS5 → J2.18 (BOOT_MODE_1)
+- U1.ADBUS6 → J2.19 (BOOT_MODE_2)
+- U1.ADBUS7 → J2.20 (BOOT_MODE_3)
+- U1.BDBUS4 → J2.21 (RESET)
 
 ### I2C (Power Monitor)
 - U1.ADBUS8 → I2C_SCL
@@ -68,17 +82,17 @@ This document provides an example text-based netlist describing component connec
 - +3V3 → C5.1, C5.2 → GND (10μF bulk)
 - +5V → C6.1, C6.2 → GND (10μF bulk)
 
-## INA228 (U2) Connections
+## INA219 (U2) Connections - Active Mode (μA Range)
 
 ### Power
 - U2.VCC → +3V3
-- U2.GND → AGND
-- U2.V+ → Power supply input (before shunt)
-- U2.V- → Power supply output (after shunt)
+- U2.GND → GND
+- U2.V+ → Power supply input (before 0.1Ω shunt)
+- U2.V- → Power supply output (after 0.1Ω shunt)
 
 ### Current Sense
-- U2.IN+ → High side of R_SHUNT
-- U2.IN- → Low side of R_SHUNT
+- U2.IN+ → High side of R_SHUNT_ACTIVE (0.1Ω)
+- U2.IN- → Low side of R_SHUNT_ACTIVE (0.1Ω)
 
 ### I2C
 - U2.SCL → I2C_SCL
@@ -91,7 +105,32 @@ This document provides an example text-based netlist describing component connec
 - Default address: 0x40
 
 ### Decoupling
-- U2.VCC → C4.1, C4.2 → AGND (0.1μF)
+- U2.VCC → C4.1, C4.2 → GND (0.1μF)
+
+## INA228 (U3) Connections - Sleep Mode (nA Range)
+
+### Power
+- U3.VCC → +3V3
+- U3.GND → AGND
+- U3.V+ → Power supply input (before 10Ω shunt)
+- U3.V- → Power supply output (after 10Ω shunt)
+
+### Current Sense
+- U3.IN+ → High side of R_SHUNT_SLEEP (10Ω)
+- U3.IN- → Low side of R_SHUNT_SLEEP (10Ω)
+
+### I2C
+- U3.SCL → I2C_SCL (shared bus with INA219)
+- U3.SDA → I2C_SDA (shared bus with INA219)
+- U3.ALERT → (Optional, can connect to GPIO)
+
+### Address Selection
+- U3.A0 → VCC (I2C address bit 0) - Different from INA219
+- U3.A1 → GND (I2C address bit 1)
+- Address: 0x41 (to avoid conflict with INA219 at 0x40)
+
+### Decoupling
+- U3.VCC → C7.1, C7.2 → AGND (0.1μF)
 
 ## I2C Bus
 
@@ -100,24 +139,33 @@ This document provides an example text-based netlist describing component connec
 - I2C_SDA → R2.1, R2.2 → +3V3 (10kΩ)
 
 ### Connections
-- I2C_SCL: U1.ADBUS8, U2.SCL, R1.1
-- I2C_SDA: U1.ADBUS9, U2.SDA, R2.1
+- I2C_SCL: U1.ADBUS8, U2.SCL, U3.SCL, R1.1
+- I2C_SDA: U1.ADBUS9, U2.SDA, U3.SDA, R2.1
 
-## Power Monitoring Path
+## Power Monitoring Path (Dual-Range)
 
-### Shunt Resistor (R_SHUNT)
-- R_SHUNT.1 → Power supply input (VDD_IN)
-- R_SHUNT.2 → Power supply output (VDD_OUT)
-- R_SHUNT.1 → U2.IN+ (Kelvin connection)
-- R_SHUNT.2 → U2.IN- (Kelvin connection)
+### Shunt Resistor - Active Mode (R_SHUNT_ACTIVE)
+- R_SHUNT_ACTIVE.1 → Power supply input (VDD_IN)
+- R_SHUNT_ACTIVE.2 → Power supply output (VDD_OUT) - via switch/MUX
+- R_SHUNT_ACTIVE.1 → U2.IN+ (Kelvin connection)
+- R_SHUNT_ACTIVE.2 → U2.IN- (Kelvin connection)
+
+### Shunt Resistor - Sleep Mode (R_SHUNT_SLEEP)
+- R_SHUNT_SLEEP.1 → Power supply input (VDD_IN)
+- R_SHUNT_SLEEP.2 → Power supply output (VDD_OUT) - via switch/MUX
+- R_SHUNT_SLEEP.1 → U3.IN+ (Kelvin connection)
+- R_SHUNT_SLEEP.2 → U3.IN- (Kelvin connection)
 
 ### Power Path
 ```
-+3V3 → [R_SHUNT: 10Ω] → J2.14 (VDD to target board)
++3V3 → [Shunt Switch/MUX] → J2.22 (VDD to target board)
          │
-         ├─→ U2.IN+
-         └─→ U2.IN-
+         ├─→ [R_SHUNT_ACTIVE: 0.1Ω] ──► U2.IN+ ──► U2.IN- ──► INA219
+         │
+         └─→ [R_SHUNT_SLEEP: 10Ω] ──► U3.IN+ ──► U3.IN- ──► INA228
 ```
+
+**Note:** Shunt switching can be implemented via manual switch, analog MUX, or relay.
 
 ## Target Board Connector (J2)
 
@@ -130,24 +178,32 @@ This document provides an example text-based netlist describing component connec
 - J2.6 → UART2_RX (U1.BDBUS1)
 - J2.7 → UART2_RTS (U1.BDBUS2) [optional]
 - J2.8 → UART2_CTS (U1.BDBUS3) [optional]
+- J2.9 → UART3_TX (U1.CDBUS0)
+- J2.10 → UART3_RX (U1.CDBUS1)
+- J2.11 → UART3_RTS (U1.CDBUS2) [optional]
+- J2.12 → UART3_CTS (U1.CDBUS3) [optional]
+- J2.13 → UART4_TX (U1.DDBUS0)
+- J2.14 → UART4_RX (U1.DDBUS1)
+- J2.15 → UART4_RTS (U1.DDBUS2) [optional]
+- J2.16 → UART4_CTS (U1.DDBUS3) [optional]
 
 ### GPIO Signals
-- J2.9 → BOOT_MODE_0 (U1.ADBUS4)
-- J2.10 → BOOT_MODE_1 (U1.ADBUS5)
-- J2.11 → BOOT_MODE_2 (U1.ADBUS6)
-- J2.12 → BOOT_MODE_3 (U1.ADBUS7)
-- J2.13 → RESET (U1.BDBUS4)
+- J2.17 → BOOT_MODE_0 (U1.ADBUS4)
+- J2.18 → BOOT_MODE_1 (U1.ADBUS5)
+- J2.19 → BOOT_MODE_2 (U1.ADBUS6)
+- J2.20 → BOOT_MODE_3 (U1.ADBUS7)
+- J2.21 → RESET (U1.BDBUS4)
 
 ### Power
-- J2.14 → VDD (from power monitoring path)
-- J2.15 → GND
-- J2.16 → GND
-- J2.17 → GND
-- J2.18 → GND
+- J2.22 → VDD (from power monitoring path)
+- J2.23 → GND
+- J2.24 → GND
+- J2.25 → GND
+- J2.26 → GND
 
 ### Reserved
-- J2.19 → NC (Not Connected)
-- J2.20 → NC (Not Connected)
+- J2.27 → NC (Not Connected)
+- J2.28 → NC (Not Connected)
 
 ## Status LEDs (Optional)
 
@@ -161,5 +217,8 @@ This document provides an example text-based netlist describing component connec
 - All GPIO signals may need series resistors for protection (22Ω-100Ω)
 - USB-C CC pins may need pull-down resistors for proper detection
 - Consider adding ESD protection on USB and connector signals
-- Power supply may need LDO regulator if FT2232H requires 3.3V from 5V USB
+- Power supply may need LDO regulator if FT4232H requires 3.3V from 5V USB
+- INA219 and INA228 share I2C bus - must use different addresses (0x40 and 0x41)
+- Shunt switching between 0.1Ω and 10Ω can be manual switch, analog MUX, or relay
+- Consider Kelvin (4-wire) connections for shunt resistors for better accuracy
 
