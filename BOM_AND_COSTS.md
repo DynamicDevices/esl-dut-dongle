@@ -40,12 +40,12 @@ This document provides detailed bill of materials and cost estimates for the ESL
 
 | Part Number | Description | Qty | Unit Cost | Total Cost | Supplier Notes |
 |-------------|-------------|-----|-----------|------------|----------------|
-| **FT2232H-56Q** | FTDI USB-to-Dual-UART + MPSSE | 1 | $4.50 | $4.50 | DigiKey, Mouser |
-| **INA219BIDCNT** | Power Monitor IC (I2C) | 1 | $1.50 | $1.50 | DigiKey, Mouser |
-| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | DigiKey, Mouser |
-| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | DigiKey, Mouser |
-| **0.1μF Capacitor** | Decoupling (0805, X7R) | 4 | $0.05 | $0.20 | DigiKey, Mouser |
-| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | DigiKey, Mouser |
+| **FT2232H-56Q** | FTDI USB-to-Dual-UART + MPSSE | 1 | $4.50 | $4.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **INA219BIDCNT** | Power Monitor IC (I2C) | 1 | $1.50 | $1.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Mouser, DigiKey |
+| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Mouser, DigiKey |
+| **0.1μF Capacitor** | Decoupling (0805, X7R) | 4 | $0.05 | $0.20 | Mouser, DigiKey |
+| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Mouser, DigiKey |
 
 **Subtotal - Main Components:** $6.80
 
@@ -102,15 +102,15 @@ This document provides detailed bill of materials and cost estimates for the ESL
 
 ### Main Components
 
-| Part Number | Description | Qty | Unit Cost | Total Cost | Notes |
-|-------------|-------------|-----|-----------|------------|-------|
-| **FT2232H-56Q** | FTDI USB-to-Dual-UART + MPSSE | 1 | $4.50 | $4.50 | Same as Config 1 |
-| **INA228AIDCNT** | Power Monitor IC (I2C, 20-bit) | 1 | $3.50 | $3.50 | Nanoamp capable |
-| **10Ω 1% Shunt** | Current sense resistor (10Ω, 0.5W) | 1 | $0.50 | $0.50 | For nA measurements |
-| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Optional: dual range |
-| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Same as Config 1 |
-| **0.1μF Capacitor** | Decoupling (0805, X7R) | 4 | $0.05 | $0.20 | Same as Config 1 |
-| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Same as Config 1 |
+| Part Number | Description | Qty | Unit Cost | Total Cost | Supplier Notes |
+|-------------|-------------|-----|-----------|------------|----------------|
+| **FT2232H-56Q** | FTDI USB-to-Dual-UART + MPSSE | 1 | $4.50 | $4.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **INA228AIDCNT** | Power Monitor IC (I2C, 20-bit) | 1 | $3.50 | $3.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **10Ω 1% Shunt** | Current sense resistor (10Ω, 0.5W) | 1 | $0.50 | $0.50 | Mouser, DigiKey |
+| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Mouser, DigiKey (optional: dual range) |
+| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Mouser, DigiKey |
+| **0.1μF Capacitor** | Decoupling (0805, X7R) | 4 | $0.05 | $0.20 | Mouser, DigiKey |
+| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Mouser, DigiKey |
 
 **Subtotal - Main Components:** $9.10 (single shunt) or $9.30 (dual shunt)
 
@@ -153,14 +153,14 @@ Same as Configuration 1: **$2.50**
 
 ### Main Components
 
-| Part Number | Description | Qty | Unit Cost | Total Cost | Notes |
-|-------------|-------------|-----|-----------|------------|-------|
-| **FT4232H-56Q** | FTDI USB-to-Quad-UART + MPSSE | 1 | $6.50 | $6.50 | 4 UARTs |
-| **INA219BIDCNT** | Power Monitor IC (I2C) | 1 | $1.50 | $1.50 | Same as Config 1 |
-| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Same as Config 1 |
-| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Same as Config 1 |
-| **0.1μF Capacitor** | Decoupling (0805, X7R) | 6 | $0.05 | $0.30 | More caps for 4 UARTs |
-| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Same as Config 1 |
+| Part Number | Description | Qty | Unit Cost | Total Cost | Supplier Notes |
+|-------------|-------------|-----|-----------|------------|----------------|
+| **FT4232H-56Q** | FTDI USB-to-Quad-UART + MPSSE | 1 | $6.50 | $6.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **INA219BIDCNT** | Power Monitor IC (I2C) | 1 | $1.50 | $1.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Mouser, DigiKey |
+| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Mouser, DigiKey |
+| **0.1μF Capacitor** | Decoupling (0805, X7R) | 6 | $0.05 | $0.30 | Mouser, DigiKey (more caps for 4 UARTs) |
+| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Mouser, DigiKey |
 
 **Subtotal - Main Components:** $8.76
 
@@ -204,15 +204,15 @@ Same as Configuration 1: **$2.50**
 
 ### Main Components
 
-| Part Number | Description | Qty | Unit Cost | Total Cost | Notes |
-|-------------|-------------|-----|-----------|------------|-------|
-| **FT4232H-56Q** | FTDI USB-to-Quad-UART + MPSSE | 1 | $6.50 | $6.50 | Same as Config 3 |
-| **INA228AIDCNT** | Power Monitor IC (I2C, 20-bit) | 1 | $3.50 | $3.50 | Same as Config 2 |
-| **10Ω 1% Shunt** | Current sense resistor (10Ω, 0.5W) | 1 | $0.50 | $0.50 | Same as Config 2 |
-| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Optional: dual range |
-| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Same as Config 1 |
-| **0.1μF Capacitor** | Decoupling (0805, X7R) | 6 | $0.05 | $0.30 | Same as Config 3 |
-| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Same as Config 1 |
+| Part Number | Description | Qty | Unit Cost | Total Cost | Supplier Notes |
+|-------------|-------------|-----|-----------|------------|----------------|
+| **FT4232H-56Q** | FTDI USB-to-Quad-UART + MPSSE | 1 | $6.50 | $6.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **INA228AIDCNT** | Power Monitor IC (I2C, 20-bit) | 1 | $3.50 | $3.50 | **Future Electronics** (primary), Mouser, DigiKey |
+| **10Ω 1% Shunt** | Current sense resistor (10Ω, 0.5W) | 1 | $0.50 | $0.50 | Mouser, DigiKey |
+| **0.1Ω 1% Shunt** | Current sense resistor (0.1Ω, 1W) | 1 | $0.20 | $0.20 | Mouser, DigiKey (optional: dual range) |
+| **10kΩ Resistor** | I2C pull-up (0805) | 2 | $0.02 | $0.04 | Mouser, DigiKey |
+| **0.1μF Capacitor** | Decoupling (0805, X7R) | 6 | $0.05 | $0.30 | Mouser, DigiKey |
+| **10μF Capacitor** | Power supply decoupling (0805) | 2 | $0.08 | $0.16 | Mouser, DigiKey |
 
 **Subtotal - Main Components:** $11.20 (single shunt) or $11.40 (dual shunt)
 
@@ -402,12 +402,30 @@ Same as Configuration 1: **$2.50**
 
 ---
 
+## Preferred Suppliers
+
+**Primary Distributor:**
+- **Future Electronics** - Primary distributor for main ICs (FTDI, TI power monitors)
+
+**General Parts:**
+- **Mouser Electronics** - General components, passives, connectors
+- **DigiKey** - General components, passives, connectors
+
+**Sourcing Strategy:**
+- Main ICs (FT2232H, FT4232H, INA219, INA228): Source from **Future Electronics** (primary)
+- Passives, resistors, capacitors: Source from **Mouser** or **DigiKey**
+- Connectors, mechanical parts: Source from **Mouser** or **DigiKey**
+
+---
+
 ## Notes and Assumptions
 
 1. **Component Pricing:**
-   - Based on DigiKey/Mouser pricing (November 2024)
+   - Main ICs: Based on **Future Electronics** pricing (primary distributor)
+   - General parts: Based on **Mouser/DigiKey** pricing (November 2024)
    - Small quantity pricing (50 units)
    - Prices may vary by supplier and region
+   - Future Electronics may offer better pricing for main ICs at volume
 
 2. **PCB Costs:**
    - Based on JLCPCB/PCBWay pricing
@@ -457,11 +475,15 @@ Same as Configuration 1: **$2.50**
 
 ## References
 
-- [DigiKey](https://www.digikey.com/)
-- [Mouser Electronics](https://www.mouser.com/)
-- [JLCPCB](https://jlcpcb.com/)
-- [PCBWay](https://www.pcbway.com/)
-- [LCSC](https://www.lcsc.com/)
+### Component Suppliers
+- [Future Electronics](https://www.futureelectronics.com/) - **Primary distributor for main ICs**
+- [Mouser Electronics](https://www.mouser.com/) - General parts
+- [DigiKey](https://www.digikey.com/) - General parts
+
+### PCB and Assembly
+- [JLCPCB](https://jlcpcb.com/) - PCB fabrication and assembly
+- [PCBWay](https://www.pcbway.com/) - PCB fabrication and assembly
+- [LCSC](https://www.lcsc.com/) - Alternative component source
 
 ---
 
