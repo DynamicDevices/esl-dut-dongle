@@ -1,0 +1,65 @@
+# Hardware Design Files
+*.kicad_pcb.bak
+*.sch.bak
+*.pro.user
+*.kicad_prl
+*.kicad_dru
+*.kicad_wks
+*.kicad_pcb-bak
+*.sch-bak
+
+# PCB Manufacturing
+*.zip
+*.gerber
+*.drill
+*.gbr
+*.gko
+*.gbl
+*.gbs
+*.gtl
+*.gts
+*.gto
+*.gtp
+*.gpb
+*.gpt
+*.gml
+
+# 3D Models
+*.step.bak
+*.stp.bak
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build Artifacts
+*.o
+*.elf
+*.hex
+*.bin
+*.map
+build/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Documentation Build
+docs/_build/
+site/
+
+# Temporary Files
+*.tmp
+*.log
+*.cache
+
