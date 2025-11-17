@@ -8,23 +8,35 @@ echo "KiCAD MCP Server Installation"
 echo "=============================="
 echo ""
 
-# Check Python version
-PYTHON_VERSION=$(python3 --version 2>&1 | awk '{print $2}' | cut -d. -f1,2)
-PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
-PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
-
-echo "Checking Python version..."
-if [ "$PYTHON_MAJOR" -lt 3 ] || ([ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 10 ]); then
-    echo "⚠️  WARNING: Python 3.10+ required, but found Python $PYTHON_VERSION"
-    echo "   You may need to install Python 3.10 or higher"
-    echo "   Or use pyenv to manage Python versions"
-    read -p "Continue anyway? (y/n) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        exit 1
+# Check for Python 3.10 (preferred) or fall back to python3
+if command -v python3.10 &> /dev/null; then
+    PYTHON_CMD="python3.10"
+    PYTHON_VERSION=$(python3.10 --version 2>&1 | awk '{print $2}')
+    echo "✅ Found Python 3.10: $PYTHON_VERSION"
+elif command -v python3 &> /dev/null; then
+    PYTHON_CMD="python3"
+    PYTHON_VERSION=$(python3 --version 2>&1 | awk '{print $2}' | cut -d. -f1,2)
+    PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
+    PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
+    
+    if [ "$PYTHON_MAJOR" -lt 3 ] || ([ "$PYTHON_MAJOR" -eq 3 ] && [ "$PYTHON_MINOR" -lt 10 ]); then
+        echo "⚠️  WARNING: Python 3.10+ required, but found Python $PYTHON_VERSION"
+        echo "   Trying to use python3.10 explicitly..."
+        if command -v python3.10 &> /dev/null; then
+            PYTHON_CMD="python3.10"
+            PYTHON_VERSION=$(python3.10 --version 2>&1 | awk '{print $2}')
+            echo "✅ Using Python 3.10: $PYTHON_VERSION"
+        else
+            echo "❌ Python 3.10 not found. Please install it first:"
+            echo "   sudo apt-get install python3.10 python3.10-venv python3.10-dev"
+            exit 1
+        fi
+    else
+        echo "✅ Python version: $PYTHON_VERSION"
     fi
 else
-    echo "✅ Python version: $PYTHON_VERSION"
+    echo "❌ Python not found!"
+    exit 1
 fi
 
 # Check for make
@@ -83,17 +95,18 @@ cd "$INSTALL_DIR"
 
 # Install dependencies
 echo ""
-echo "Installing dependencies..."
+echo "Installing dependencies using $PYTHON_CMD..."
 if command -v make &> /dev/null; then
-    make install || {
-        echo "make install failed, trying manual installation..."
-        python3 -m venv .venv || uv venv
+    # Try to use Python 3.10 for make install
+    PYTHON=$PYTHON_CMD make install || {
+        echo "make install failed, trying manual installation with $PYTHON_CMD..."
+        $PYTHON_CMD -m venv .venv || uv venv
         source .venv/bin/activate
         pip install -r requirements.txt || uv pip install -r requirements.txt
     }
 else
     echo "Using manual installation (make not available)..."
-    python3 -m venv .venv || uv venv
+    $PYTHON_CMD -m venv .venv || uv venv
     source .venv/bin/activate
     pip install -r requirements.txt || uv pip install -r requirements.txt
 fi
@@ -123,6 +136,12 @@ fi
 INSTALL_DIR_ABS=$(cd "$INSTALL_DIR" && pwd)
 PYTHON_PATH="$INSTALL_DIR_ABS/.venv/bin/python"
 MAIN_PATH="$INSTALL_DIR_ABS/main.py"
+
+# Verify Python version in venv
+if [ -f "$PYTHON_PATH" ]; then
+    VENV_PYTHON_VERSION=$($PYTHON_PATH --version 2>&1 | awk '{print $2}')
+    echo "✅ Virtual environment Python version: $VENV_PYTHON_VERSION"
+fi
 
 echo ""
 echo "✅ Installation complete!"
