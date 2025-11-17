@@ -36,8 +36,9 @@ except ImportError:
 SCOPES = ['https://www.googleapis.com/auth/documents.readonly']
 
 # Path to credentials file (download from Google Cloud Console)
-CREDENTIALS_FILE = 'credentials.json'
-TOKEN_FILE = 'token.pickle'
+SCRIPT_DIR = Path(__file__).parent
+CREDENTIALS_FILE = SCRIPT_DIR / 'credentials.json'
+TOKEN_FILE = SCRIPT_DIR / 'token.pickle'
 
 # Google Doc ID (found in the document URL)
 # Example: https://docs.google.com/document/d/DOCUMENT_ID/edit
@@ -52,7 +53,7 @@ def get_credentials():
     creds = None
     
     # Load existing token
-    if os.path.exists(TOKEN_FILE):
+    if TOKEN_FILE.exists():
         with open(TOKEN_FILE, 'rb') as token:
             creds = pickle.load(token)
     
@@ -61,17 +62,17 @@ def get_credentials():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            if not os.path.exists(CREDENTIALS_FILE):
+            if not CREDENTIALS_FILE.exists():
                 print(f"Error: {CREDENTIALS_FILE} not found.")
                 print("Please download credentials from Google Cloud Console:")
                 print("1. Go to https://console.cloud.google.com/")
                 print("2. Create a project (or select existing)")
                 print("3. Enable Google Docs API")
                 print("4. Create OAuth 2.0 credentials")
-                print("5. Download as JSON and save as 'credentials.json'")
+                print(f"5. Download as JSON and save as '{CREDENTIALS_FILE}'")
                 sys.exit(1)
             
-            flow = InstalledAppFlow.from_client_secrets_file(CREDENTIALS_FILE, SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(str(CREDENTIALS_FILE), SCOPES)
             creds = flow.run_local_server(port=0)
         
         # Save credentials for next run
