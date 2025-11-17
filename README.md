@@ -17,8 +17,8 @@ The ESL DUT Dongle provides:
 ### Key Components
 
 - **USB Bridge:** FTDI FT4232H (4 UARTs + GPIO)
-- **Power Monitor:** INA219 (1μA minimum measurement)
-- **Shunt Resistor:** 0.01Ω (10mΩ)
+- **Power Monitoring:** Dual range - INA219 (μA) + INA228 (nA)
+- **Shunt Resistors:** 10Ω (INA219) + 0.01Ω (INA228)
 - **Connector:** USB Type-C
 - **Target Interface:** 2.54mm pitch headers
 

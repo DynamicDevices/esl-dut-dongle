@@ -12,7 +12,7 @@ This document covers KiCAD usage for the ESL DUT Dongle hardware design.
 
 ### kicad-cli
 
-**Availability:** KiCAD 7.0+ (included with KiCAD 9.0+)
+**Availability:** KiCAD 9.0+ (includes `kicad-cli`)
 
 **PDF Export:**
 ```bash
@@ -101,7 +101,7 @@ See `SETUP.md` for installation details.
 ## Known Issues
 
 - `kicad --version` may timeout - use `which kicad` or `kicad-cli --version` instead
-- System symbols handled automatically by KiCAD 6.0+
+- System symbols handled automatically by KiCAD 9.0+
 
 ## OrCAD Compatibility
 

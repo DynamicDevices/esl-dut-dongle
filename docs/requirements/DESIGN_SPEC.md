@@ -9,14 +9,14 @@
 
 **Q1: USB-to-UART+GPIO chip** → FT4232H (4 UARTs)  
 **Q2: UART count** → 4 UARTs (confirmed by Q1)  
-**Q3: Current measurement** → 1μA minimum (INA219 sufficient)  
-**Q4: Dual-range power monitoring** → Single range (INA219) - Confirmed by Q3  
-**Q5: Shunt resistor** → 0.01Ω (10mΩ)  
+**Q3: Current measurement** → 1μA minimum (INA219 + INA228 for full nA-A range)  
+**Q4: Dual-range power monitoring** → Dual range (INA219 + INA228)  
+**Q5: Shunt resistor** → Dual shunts: 10Ω (INA219) + 0.01Ω (INA228)  
 **Q6: USB connector** → USB Type-C  
 **Q7: Connection method** → Cable with connector or header pins  
 **Q8: Target connector** → 2.54mm pitch headers  
 **Q9: Enclosure** → Yes, 3D printed enclosure (for prototypes)  
-**Q15: Sampling rate** → Configurable (up to INA219 maximum)
+**Q15: Sampling rate** → Configurable (up to INA219/INA228 maximum)
 
 ### Software Requirements (Alex - Complete)
 
@@ -45,8 +45,8 @@
 ### Main Components
 
 - **USB Bridge:** FT4232H (4 UARTs + GPIO via MPSSE)
-- **Power Monitoring:** INA219 (1μA minimum measurement)
-- **Shunt Resistor:** 0.01Ω (10mΩ)
+- **Power Monitoring:** Dual range - INA219 (μA range) + INA228 (nA range)
+- **Shunt Resistors:** 10Ω (INA219) + 0.01Ω (INA228)
 - **USB Connector:** Type-C
 - **Target Connector:** 2.54mm headers (with cable option)
 - **Enclosure:** 3D printed (prototypes)
@@ -61,7 +61,7 @@
 - **Full OpenOCD support** preferred
 - **Future-proofing** - support current and future boards
 - **4 UARTs** for flexibility
-- **1μA measurement** sufficient (INA219)
+- **Dual-range measurement:** INA219 (1μA-32mA) + INA228 (nA-A range)
 
 ## Critical Decisions Remaining
 

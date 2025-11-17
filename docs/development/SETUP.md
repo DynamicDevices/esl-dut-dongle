@@ -10,7 +10,7 @@
 
 ## KiCAD Installation
 
-### Install Latest Stable (KiCAD 9.0+)
+### Install Latest Stable (KiCAD 9.0.6)
 
 **Required for:** Schematic design, PCB layout, automated PDF export
 
@@ -18,14 +18,16 @@
 sudo snap install kicad
 ```
 
+**Version:** Snap installs KiCAD 9.0.6 (latest stable as of November 2025)
+
 **Verify installation:**
 ```bash
 export PATH="/snap/bin:$PATH"
 kicad-cli --version
-# Should show KiCAD 9.0.x or later
+# Should show KiCAD 9.0.6
 ```
 
-**Note:** KiCAD 7.0+ includes `kicad-cli` for command-line automation. Older versions (6.0.x) require manual GUI export.
+**Note:** KiCAD 9.0+ includes `kicad-cli` for command-line automation.
 
 ### Accessing KiCAD
 

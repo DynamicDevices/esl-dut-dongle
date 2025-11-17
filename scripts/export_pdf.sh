@@ -1,6 +1,6 @@
 #!/bin/bash
 # Export KiCAD Schematic to PDF using kicad-cli
-# Requires KiCAD 7.0+ (kicad-cli)
+# Requires KiCAD 9.0+ (kicad-cli)
 
 set -e
 
@@ -21,7 +21,7 @@ if ! command -v kicad-cli &> /dev/null; then
     echo "❌ Error: kicad-cli not found"
     echo ""
     echo "Please ensure:"
-    echo "1. KiCAD 7.0+ is installed (via snap: sudo snap install kicad)"
+    echo "1. KiCAD 9.0+ is installed (via snap: sudo snap install kicad)"
     echo "2. /snap/bin is in your PATH"
     echo ""
     echo "Current PATH: $PATH"
