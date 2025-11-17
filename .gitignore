@@ -63,3 +63,6 @@ site/
 *.log
 *.cache
 
+# Google API credentials (keep private)
+scripts/credentials.json
+scripts/token.pickle
