@@ -1,6 +1,12 @@
-# ESL DUT Dongle - Netlist
+# Example PCB Design - Netlist Investigation
 
-This document provides a text-based netlist describing all component connections. This can be used as a reference when creating the KiCAD schematic.
+## ⚠️ IMPORTANT: This is an EXAMPLE/INVESTIGATION Document
+
+**This document is NOT the actual hardware netlist.** It is an example created to investigate netlist formats and documentation approaches.
+
+## Overview
+
+This document provides an example text-based netlist describing component connections. This is used to explore netlist documentation formats and can serve as a reference when creating KiCAD schematics.
 
 ## Power Nets
 

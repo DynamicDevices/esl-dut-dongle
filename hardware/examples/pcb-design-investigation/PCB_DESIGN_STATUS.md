@@ -1,8 +1,12 @@
-# PCB Design Status
+# Example PCB Design Status - Investigation
 
-## Current Status: **Design Phase - Initial Schematic**
+## ⚠️ IMPORTANT: This is an EXAMPLE/INVESTIGATION Document
 
-This document tracks the progress of PCB design for the ESL DUT dongle.
+**This document is NOT tracking the actual hardware design.** It is an example used to investigate PCB design workflows and status tracking approaches.
+
+## Current Status: **Investigation Phase - Example Schematic**
+
+This document tracks an example PCB design process for investigating design capabilities.
 
 ## Design Documents Created
 

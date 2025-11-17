@@ -1,8 +1,14 @@
-# ESL DUT Dongle - Schematic Design
+# Example PCB Design - Schematic Design Investigation
+
+## ⚠️ IMPORTANT: This is an EXAMPLE/INVESTIGATION Document
+
+**This document is NOT the actual hardware design.** It is an example created to investigate PCB design capabilities, documentation approaches, and tool integration.
+
+The actual hardware design will be created in `hardware/schematics/` once the design specification questionnaire is completed.
 
 ## Design Overview
 
-This document describes the schematic design for the ESL DUT dongle based on initial assumptions. The design will be refined once answers to the design specification questionnaire are available.
+This document describes an example schematic design for the ESL DUT dongle based on initial assumptions. It is used to explore PCB design workflows and documentation approaches.
 
 **Current Assumptions:**
 - FTDI FT2232H (2 UARTs + GPIO via MPSSE)
