@@ -2,9 +2,17 @@
 
 This document contains questions that should be answered before creating the detailed design specification. Each question includes recommended answers based on research and analysis.
 
+**Legend:**
+- 🔧 **Hardware (Michael)** - Hardware design and component selection questions
+- 💻 **Software (Alex)** - Software requirements and integration questions
+- 🤝 **Both (Michael + Alex)** - Questions requiring input from both hardware and software teams
+- 📋 **Third Party** - Questions requiring external input (datasheets, management, procurement, etc.)
+
 ## Chip Selection
 
 ### Q1: Which USB-to-UART+GPIO chip should we use?
+
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Hardware component selection affects software support
 
 **Options:**
 - A) FTDI FT2232H (2 UARTs + GPIO via MPSSE)
@@ -28,6 +36,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q2: Do we need 4 UARTs or is 2 sufficient?
 
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Hardware capability affects software use cases
+
 **Options:**
 - A) 2 UARTs sufficient (meets current requirements)
 - B) 4 UARTs for future expansion
@@ -47,6 +57,8 @@ This document contains questions that should be answered before creating the det
 ## Power Monitoring
 
 ### Q3: What is the minimum current measurement requirement?
+
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Hardware spec driven by software use case requirements
 
 **Options:**
 - A) Microamp level (100 μA minimum) - INA219
@@ -68,6 +80,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q4: Should we support dual-range power monitoring?
 
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware design decision
+
 **Options:**
 - A) Single range (INA219 for μA or INA228 for nA)
 - B) Dual range (both INA219 and INA228)
@@ -86,6 +100,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q5: What shunt resistor value should we use?
+
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware component selection
 
 **Options:**
 - A) 0.1Ω (1mA resolution, up to 3.2A)
@@ -109,6 +125,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q6: What USB connector should we use?
 
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware component selection
+
 **Options:**
 - A) USB Type-C (modern, reversible)
 - B) USB Micro-B (common, lower cost)
@@ -127,6 +145,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q7: How should we connect to target boards?
+
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware mechanical design
 
 **Options:**
 - A) Header pins (male) - plug into target board
@@ -148,6 +168,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q8: What connector type for target board connection?
 
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware component selection
+
 **Options:**
 - A) 2.54mm (0.1") pitch headers (standard)
 - B) 2.0mm pitch headers (compact)
@@ -167,6 +189,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q9: Do we need an enclosure?
+
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware mechanical design
 
 **Options:**
 - A) Yes, 3D printed enclosure
@@ -190,6 +214,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q10: What operating systems must be supported?
 
+**Responsible Party:** 💻 **Software (Alex)** - Software development requirement
+
 **Options:**
 - A) Linux only
 - B) Linux and Windows
@@ -208,6 +234,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q11: What programming languages should be supported?
+
+**Responsible Party:** 💻 **Software (Alex)** - Software development requirement
 
 **Options:**
 - A) Python only
@@ -229,6 +257,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q12: Do we need a GUI application?
 
+**Responsible Party:** 💻 **Software (Alex)** - Software feature requirement
+
 **Options:**
 - A) Yes, graphical user interface
 - B) No, command-line only
@@ -247,6 +277,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q13: What level of OpenOCD integration is needed?
+
+**Responsible Party:** 💻 **Software (Alex)** - Software integration requirement
 
 **Options:**
 - A) Full OpenOCD support (JTAG/SWD debugging)
@@ -269,6 +301,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q14: What power monitoring tools should we integrate with?
 
+**Responsible Party:** 💻 **Software (Alex)** - Software integration requirement
+
 **Options:**
 - A) Custom software only
 - B) Integration with existing tools (PowerJoular, etc.)
@@ -287,6 +321,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q15: What sampling rate is needed for power monitoring?
+
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Hardware capability and software requirements
 
 **Options:**
 - A) Low (<10 Hz) - for average power
@@ -310,6 +346,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q16: Which target boards must be supported initially?
 
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Affects both hardware design and software support
+
 **Options:**
 - A) i.MX8M Mini only
 - B) i.MX93 only
@@ -330,6 +368,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q17: What are the boot mode pin requirements for target boards?
 
+**Responsible Party:** 📋 **Third Party** - Requires verification with NXP datasheets and/or actual hardware boards
+
 **Options:**
 - A) 4 GPIOs for boot mode (as specified)
 - B) More GPIOs needed
@@ -349,6 +389,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q18: What voltage levels do target boards use?
+
+**Responsible Party:** 📋 **Third Party** - Requires verification with NXP datasheets and/or actual hardware boards
 
 **Options:**
 - A) 3.3V only
@@ -372,6 +414,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q19: What is the target cost per unit?
 
+**Responsible Party:** 📋 **Third Party** - May require management/business input; hardware team provides BOM cost analysis
+
 **Options:**
 - A) <$15
 - B) $15-20
@@ -392,6 +436,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q20: What is the initial production quantity?
 
+**Responsible Party:** 📋 **Third Party** - Requires management/business input
+
 **Options:**
 - A) 10-50 units (prototype/small batch)
 - B) 50-100 units (initial production)
@@ -411,6 +457,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q21: Who will assemble the boards?
+
+**Responsible Party:** 📋 **Third Party** - Requires procurement/manufacturing input; hardware team provides recommendations
 
 **Options:**
 - A) JLCPCB assembly service
@@ -434,6 +482,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q22: What test equipment is available?
 
+**Responsible Party:** 🔧 **Hardware (Michael)** - Hardware testing requirement
+
 **Options:**
 - A) Basic (multimeter, oscilloscope)
 - B) Comprehensive (including power analyzers)
@@ -453,6 +503,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q23: What is the testing and validation plan?
+
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Requires both hardware validation and software testing plans
 
 **Options:**
 - A) Basic functional testing
@@ -476,6 +528,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q24: What documentation is required?
 
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Requires both hardware and software documentation
+
 **Options:**
 - A) Basic user manual
 - B) Comprehensive documentation (user manual, API docs, examples)
@@ -498,6 +552,8 @@ This document contains questions that should be answered before creating the det
 
 ### Q25: What is the primary use case?
 
+**Responsible Party:** 🤝 **Both (Michael + Alex)** - Affects both hardware features and software priorities
+
 **Options:**
 - A) Automated board flashing
 - B) Power profiling and optimization
@@ -517,6 +573,8 @@ This document contains questions that should be answered before creating the det
 ---
 
 ### Q26: How will the dongle be used in automation?
+
+**Responsible Party:** 💻 **Software (Alex)** - Software workflow requirement
 
 **Options:**
 - A) Standalone scripts
@@ -577,4 +635,42 @@ This document contains questions that should be answered before creating the det
 - Cost and production decisions affect component selection
 - Software requirements affect firmware development approach
 - Use cases determine feature priorities
+
+---
+
+## Question Summary by Responsible Party
+
+### 🔧 Hardware Questions (Michael)
+- Q4: Dual-range power monitoring
+- Q5: Shunt resistor value
+- Q6: USB connector type
+- Q7: Connection method to target boards
+- Q8: Connector type for target board
+- Q9: Enclosure requirements
+- Q22: Test equipment availability
+
+### 💻 Software Questions (Alex)
+- Q10: Operating system support
+- Q11: Programming language support
+- Q12: GUI application requirement
+- Q13: OpenOCD integration level
+- Q14: Power monitoring tools integration
+- Q26: Automation usage
+
+### 🤝 Both (Michael + Alex)
+- Q1: USB-to-UART+GPIO chip selection
+- Q2: UART count (2 vs 4)
+- Q3: Minimum current measurement requirement
+- Q15: Power monitoring sampling rate
+- Q16: Target boards to support
+- Q23: Testing and validation plan
+- Q24: Documentation requirements
+- Q25: Primary use case
+
+### 📋 Third Party (External Input Required)
+- Q17: Boot mode pin requirements (NXP datasheets/hardware verification)
+- Q18: Voltage levels (NXP datasheets/hardware verification)
+- Q19: Target cost per unit (management/business input)
+- Q20: Initial production quantity (management/business input)
+- Q21: Board assembly (procurement/manufacturing input)
 
