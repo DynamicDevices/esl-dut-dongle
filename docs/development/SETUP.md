@@ -34,7 +34,7 @@
   sudo apt-get install kicad
   
   # Verify installation
-  kicad --version
+  kicad --version  # Note: This command doesn't work (times out) - use `which kicad` instead
   ```
   
   See `docs/development/KICAD_WORKFLOW.md` for detailed setup and workflow guide.

@@ -206,8 +206,11 @@ python3.10 -m venv .venv
 
 **Solution:**
 - Ensure KiCAD is installed and in PATH
-- Verify: `which kicad` or `kicad --version`
+- Verify: `which kicad` (note: `kicad --version` doesn't work - it times out or hangs)
+- Alternative verification: Try opening KiCAD GUI: `kicad` (without arguments)
 - The MCP server may need KiCAD's Python libraries
+
+**Note:** The `kicad --version` command doesn't work on this system - it times out. Use `which kicad` to verify installation instead.
 
 ### Issue: MCP server not appearing in Cursor
 
