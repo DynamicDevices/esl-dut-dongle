@@ -1,0 +1,151 @@
+# Design Specification Answers (YAML Format)
+# This file can be easily parsed programmatically
+# Edit this file to answer the questionnaire questions
+
+metadata:
+  status: "in_progress"
+  last_updated: ""
+  contributors: []
+
+chip_selection:
+  q1_usb_chip:
+    answer: ""  # Options: FT2232H, FT4232H, CP2108, Other
+    rationale: ""
+  
+  q2_uart_count:
+    answer: ""  # Options: 2, 4
+    rationale: ""
+
+power_monitoring:
+  q3_minimum_current:
+    answer: ""  # Options: microamp_INA219, nanoamp_INA228, both
+    rationale: ""
+  
+  q4_dual_range:
+    answer: ""  # Options: single, dual
+    rationale: ""
+  
+  q5_shunt_resistor:
+    answer: ""  # Options: 0.1ohm, 1ohm, 10ohm, dual
+    rationale: ""
+
+connectors_mechanical:
+  q6_usb_connector:
+    answer: ""  # Options: type_c, micro_b, other
+    other_spec: ""
+    rationale: ""
+  
+  q7_target_connection:
+    answer: ""  # Options: header_pins, header_sockets, cable, combination
+    rationale: ""
+  
+  q8_connector_type:
+    answer: ""  # Options: 2.54mm, 2.0mm, jst, custom
+    custom_spec: ""
+    rationale: ""
+  
+  q9_enclosure:
+    answer: ""  # Options: 3d_printed, injection_molded, no, optional
+    rationale: ""
+
+software_integration:
+  q10_os_support:
+    answer: []  # Options: linux, windows, macos
+    rationale: ""
+  
+  q11_programming_languages:
+    answer: []  # Options: python, c_cpp, other
+    other_languages: []
+    rationale: ""
+  
+  q12_gui:
+    answer: ""  # Options: yes, no, optional
+    rationale: ""
+  
+  q13_openocd:
+    answer: ""  # Options: full_support, basic_compatibility, not_needed
+    rationale: ""
+
+power_monitoring_integration:
+  q14_tools:
+    answer: ""  # Options: custom_only, existing_tools, both
+    specific_tools: []
+    rationale: ""
+  
+  q15_sampling_rate:
+    answer: ""  # Options: low, medium, high, configurable
+    rationale: ""
+
+target_board_support:
+  q16_initial_boards:
+    answer: []  # Options: imx8m_mini, imx93, future_boards
+    rationale: ""
+  
+  q17_boot_mode_pins:
+    answer: ""  # Options: 4_gpios, more_needed, less_needed
+    imx8m_mini_requirements: ""
+    imx93_requirements: ""
+    notes: ""
+  
+  q18_voltage_levels:
+    answer: ""  # Options: 3.3v_only, 1.8v_only, multiple
+    imx8m_mini_voltage: ""
+    imx93_voltage: ""
+    notes: ""
+
+cost_production:
+  q19_target_cost:
+    answer: 0  # USD
+    rationale: ""
+  
+  q20_production_quantity:
+    answer: ""  # Options: 10_50, 50_100, 100_plus, tbd
+    rationale: ""
+  
+  q21_assembly:
+    answer: ""  # Options: jlcpcb, local_assembly, in_house, tbd
+    rationale: ""
+
+testing_validation:
+  q22_test_equipment:
+    answer: ""  # Options: basic, comprehensive, limited, tbd
+    available_equipment: []
+    rationale: ""
+  
+  q23_testing_plan:
+    answer: ""  # Options: basic, comprehensive, minimal, tbd
+    notes: ""
+
+documentation:
+  q24_documentation:
+    answer: ""  # Options: basic, comprehensive, minimal
+    specific_requirements: []
+    rationale: ""
+
+use_cases:
+  q25_primary_use_case:
+    answer: []  # Options: automated_flashing, power_profiling, general_debugging, all
+    priority_order: []
+    rationale: ""
+  
+  q26_automation:
+    answer: []  # Options: standalone_scripts, cicd, both
+    specific_requirements: []
+    rationale: ""
+
+additional_notes: ""
+
+decision_summary:
+  key_decisions:
+    chip: ""
+    power_monitor: ""
+    target_cost: 0
+    production_quantity: ""
+  
+  critical_verification:
+    boot_mode_pins_verified: false
+    voltage_levels_verified: false
+    connector_types_verified: false
+  
+  next_steps: []
+
