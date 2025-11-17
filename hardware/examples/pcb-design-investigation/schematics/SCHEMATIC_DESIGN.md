@@ -6,6 +6,10 @@
 
 The actual hardware design will be created in `hardware/schematics/` once the design specification questionnaire is completed.
 
+## OrCAD Compatibility Note
+
+**Important:** Michael uses OrCAD for professional PCB design. All materials created in KiCAD should be documented and exported in standard formats (EDIF netlist, Gerber files) to ensure compatibility with OrCAD. See `docs/development/ORCAD_COMPATIBILITY.md` for details.
+
 ## Design Overview
 
 This document describes an example schematic design for the ESL DUT dongle based on initial assumptions and partial answers from the design specification questionnaire. It is used to explore PCB design workflows and documentation approaches.
