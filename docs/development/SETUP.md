@@ -32,7 +32,13 @@
   ```bash
   # Ubuntu/Debian
   sudo apt-get install kicad
+  
+  # Verify installation
+  kicad --version
   ```
+  
+  See `docs/development/KICAD_WORKFLOW.md` for detailed setup and workflow guide.
+  See `docs/development/KICAD_QUICK_START.md` for quick start checklist.
 
 - **pyftdi** - Python FTDI library
   ```bash
