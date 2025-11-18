@@ -1,0 +1,22 @@
+(kicad_sch (version 20230121) (generator kicad) (generator_version "9.0.6")
+
+  (uuid 00000000-0000-0000-0000-000000000000)
+
+  (paper "A4")
+
+  (title_block
+    (title "ESL DUT Dongle")
+    (date "2025-11-17")
+    (rev "0.1")
+    (company "Active Edge Solutions")
+    (comment 1 "USB dongle for i.MX8M Mini and i.MX93 development boards")
+    (comment 2 "Dual-range power monitoring: INA219 (μA) + INA228 (nA)")
+    (comment 3 "4 UARTs + GPIO via FT4232H")
+  )
+
+  (lib_symbols
+  )
+
+  (junction (at 0 0) (diameter 0) (color 0 0 0 0) (uuid 00000000-0000-0000-0000-000000000001))
+)
+

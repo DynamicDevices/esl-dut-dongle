@@ -1,0 +1,6 @@
+(fp_lib_table
+  (lib (name "FT4232H_Footprint") (type "KiCad") (uri "${KIPRJMOD}/footprints/QFN50P800X800X100-57N.kicad_mod") (options "") (descr "FT4232H QFN-56 Footprint"))
+  (lib (name "INA219_Footprint") (type "KiCad") (uri "${KIPRJMOD}/footprints/SOT65P280X145-8N.kicad_mod") (options "") (descr "INA219 MSOP-8 Footprint"))
+  (lib (name "INA228_Footprint") (type "KiCad") (uri "${KIPRJMOD}/footprints/SOP50P490X110-10N.kicad_mod") (options "") (descr "INA228 MSOP-10 Footprint"))
+)
+

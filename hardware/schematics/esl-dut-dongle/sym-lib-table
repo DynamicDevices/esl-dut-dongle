@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name "FT4232H") (type "KiCad") (uri "${KIPRJMOD}/symbols/FT4232H-56Q-REEL.kicad_sym") (options "") (descr "FT4232H USB-to-Quad-UART Bridge"))
+  (lib (name "INA219") (type "KiCad") (uri "${KIPRJMOD}/symbols/INA219BIDCNT.kicad_sym") (options "") (descr "INA219 Power Monitor - Microamp Level"))
+  (lib (name "INA228") (type "KiCad") (uri "${KIPRJMOD}/symbols/INA228AIDGSR.kicad_sym") (options "") (descr "INA228 Power Monitor - Nanoamp Level"))
+)
+
