@@ -67,3 +67,19 @@ site/
 scripts/credentials.json
 scripts/token.pickle
 *.tar.gz
+# Temporary KiCAD files
+*.kicad_sch.backup*
+*.kicad_pcb.backup*
+
+# KiCAD temporary files
+*.tmp
+*.bak
+
+# Snap access scripts (temporary)
+grant_snap_access*.sh
+copy_to_home.sh
+create_bind_mount.sh
+make_bind_mount_permanent.sh
+open_kicad*.sh
+QUICK_OPEN_KICAD.md
+README_SNAP_ACCESS.md

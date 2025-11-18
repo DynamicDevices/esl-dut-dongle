@@ -12,8 +12,6 @@
   )
   (lib_symbols
   )
-
-  ;; Main ICs
   (symbol (lib_id "FT4232H:FT4232H-56Q-REEL") (at 1000 1000 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid aa12c7fd-494e-4e7e-9a25-353baf912760)
@@ -63,7 +61,6 @@
     )
   )
 
-  ;; Shunt Resistors
   (symbol (lib_id "Device:R") (at 300 2500 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9be36f2f-724c-4a88-ae0b-d3398488c716)
@@ -97,7 +94,6 @@
     )
   )
 
-  ;; Connectors
   (symbol (lib_id "Connector:Conn_01x06_Male") (at 1000 500 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 59a205f0-6ba1-4805-9066-3b36b743613f)
@@ -131,7 +127,6 @@
     )
   )
 
-  ;; Decoupling Capacitors
   (symbol (lib_id "Device:C") (at 800 1000 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1f8e5262-f771-40b5-9638-36b05e8ed552)
@@ -261,7 +256,6 @@
     )
   )
 
-  ;; I2C Pull-up Resistors
   (symbol (lib_id "Device:R") (at 700 2500 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ea7d5c01-0ffe-4a54-a926-1be3f3a638f9)
@@ -295,7 +289,6 @@
     )
   )
 
-  ;; Optional Status LED
   (symbol (lib_id "Device:LED") (at 1800 1000 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 64699d3e-d055-45ef-9c64-08d1d4dbce06)
@@ -329,25 +322,47 @@
     )
   )
 
-  ;; Power Symbols
-  (power (at 200 1000 0) (pin_numbers hide) (pin_names (offset 0)) (name "+3V3")
+  (symbol (lib_id "power:+3V3") (at 200 1000 0) (unit 1)
+    (in_bom no) (on_board no) (dnp no) (fields_autoplaced)
     (uuid 644de0d3-b581-4dd6-b42f-8f38c3c188a1)
-    (pin "1" (uuid 95a31a42-1ee8-4485-ba09-fbf029eb7d46))
+    (property "Reference" "#PWR" (at 200 975 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Value" "+3V3" (at 200 1025 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
   )
-  (power (at 200 800 0) (pin_numbers hide) (pin_names (offset 0)) (name "+5V")
+  (symbol (lib_id "power:+5V") (at 200 800 0) (unit 1)
+    (in_bom no) (on_board no) (dnp no) (fields_autoplaced)
     (uuid a10bdf0e-2a4c-41cb-b675-259a29dd4ebe)
-    (pin "1" (uuid 24d9bf18-b09c-4016-a458-6362f0daf244))
+    (property "Reference" "#PWR" (at 200 775 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Value" "+5V" (at 200 825 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
   )
-  (power (at 200 1200 0) (pin_numbers hide) (pin_names (offset 0)) (name "GND")
+  (symbol (lib_id "power:GND") (at 200 1200 0) (unit 1)
+    (in_bom no) (on_board no) (dnp no) (fields_autoplaced)
     (uuid 17b0f6d1-f671-41fe-958c-efd40ef978eb)
-    (pin "1" (uuid 14ebfb2d-c4e7-487b-a211-0860519bc31e))
+    (property "Reference" "#PWR" (at 200 1175 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Value" "GND" (at 200 1225 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
   )
-  (power (at 200 1400 0) (pin_numbers hide) (pin_names (offset 0)) (name "AGND")
+  (symbol (lib_id "power:AGND") (at 200 1400 0) (unit 1)
+    (in_bom no) (on_board no) (dnp no) (fields_autoplaced)
     (uuid 9e33b165-1012-4039-9e48-f0224c2190eb)
-    (pin "1" (uuid 1220fc0b-f8c4-420f-9450-910fac373888))
+    (property "Reference" "#PWR" (at 200 1375 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Value" "AGND" (at 200 1425 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
   )
 
-  ;; Power Net Labels
   (label "+3V3" (at 250 1000 0) (fields_autoplaced)
     (uuid fcf8507c-4954-4817-8585-bd7691ad3193)
   )
@@ -361,7 +376,6 @@
     (uuid 9b2b5456-39a7-47fd-adc3-81e1c30c3cf1)
   )
 
-  ;; I2C Net Labels
   (label "I2C_SCL" (at 900 2500 0) (fields_autoplaced)
     (uuid ffe0227c-4e8d-466b-885a-c575140472f0)
   )
@@ -369,7 +383,6 @@
     (uuid 8ccf5d1e-18db-46f9-9202-883af0404963)
   )
 
-  ;; UART Net Labels
   (label "UART1_TX" (at 850 2800 0) (fields_autoplaced)
     (uuid 5386fac0-8b85-424f-a26a-3bc131911c89)
   )
@@ -395,7 +408,6 @@
     (uuid 18767b8b-5f9e-42f7-a3cd-5841966cfc14)
   )
 
-  ;; GPIO Net Labels
   (label "BOOT_MODE_0" (at 850 3100 0) (fields_autoplaced)
     (uuid b070aee9-b8d2-47a3-855a-2dbbb15f0f91)
   )
@@ -412,7 +424,6 @@
     (uuid 1420db57-c6f0-4ab1-be77-e333759e53c8)
   )
 
-  ;; Power Monitoring Net Labels
   (label "VDD_IN" (at 250 2600 0) (fields_autoplaced)
     (uuid dd4fcd18-897e-46d0-a4d3-70235282f008)
   )
@@ -426,7 +437,6 @@
     (uuid 4f981ac9-c8d0-43b2-a4aa-b6bea9c81ba8)
   )
 
-  ;; Power Distribution Wires
   (wire (pts (xy 250 1000) (xy 400 1000))
     (stroke (width 0) (type default))
     (uuid afcfb178-006f-40c1-834d-05d5b411d04f)
@@ -452,7 +462,6 @@
     (uuid a9a8186f-3cac-44e8-b362-2d7b0b0ea6de)
   )
 
-  ;; I2C Bus Wires
   (wire (pts (xy 700 2500) (xy 900 2500))
     (stroke (width 0) (type default))
     (uuid 03dc0536-40c2-4cff-8096-cba617a059ba)
@@ -478,7 +487,6 @@
     (uuid 04ba720b-bce9-49e8-b856-66ef2e6e774f)
   )
 
-  ;; Power Monitoring Shunt Wires
   (wire (pts (xy 250 2600) (xy 300 2500))
     (stroke (width 0) (type default))
     (uuid b67265d7-c217-4c84-89c1-940c6a003e27)
@@ -504,7 +512,6 @@
     (uuid 2f79da39-ad80-4b3f-a723-e511a6e02071)
   )
 
-  ;; Decoupling Capacitor Wires
   (wire (pts (xy 800 1000) (xy 1000 1000))
     (stroke (width 0) (type default))
     (uuid a2dca8f7-761e-42ac-989f-4e61e3ca6b57)
@@ -562,7 +569,6 @@
     (uuid 7bced551-3ee5-4e2d-9f4d-bc84c29b581b)
   )
 
-  ;; I2C Pull-up Wires
   (wire (pts (xy 700 2500) (xy 700 1000))
     (stroke (width 0) (type default))
     (uuid 71ee342c-d7fb-4909-b535-222352a61ab2)
@@ -572,7 +578,6 @@
     (uuid 99abd70e-c704-41c5-905d-d3a5c5c045fa)
   )
 
-  ;; USB-C Connections
   (wire (pts (xy 1000 500) (xy 250 800))
     (stroke (width 0) (type default))
     (uuid 9c0cebea-685c-437f-a3bc-e91f17ee8e80)
@@ -600,7 +605,6 @@
     (uuid c5be7a61-17e0-4df2-9c69-0fa9856cb57b)
   )
 
-  ;; FT4232H I2C Connections
   (wire (pts (xy 1000 1000) (xy 900 2500))
     (stroke (width 0) (type default))
     (uuid 21958aa3-7ebc-4acd-bbd2-7522ce24f4d2)
@@ -610,7 +614,6 @@
     (uuid d7e678d9-acb4-43cd-85ae-3f0ed16976bf)
   )
 
-  ;; FT4232H UART Connections
   (wire (pts (xy 1000 1000) (xy 850 2800))
     (stroke (width 0) (type default))
     (uuid fde32c54-4c88-422c-80ec-71c1af5bf9ec)
@@ -644,7 +647,6 @@
     (uuid fb14574d-ed05-4f20-8fb9-315ad91ae07f)
   )
 
-  ;; FT4232H GPIO Connections
   (wire (pts (xy 1000 1000) (xy 850 3100))
     (stroke (width 0) (type default))
     (uuid b391ccfc-db1b-4773-a19c-ae868503dbcb)
@@ -666,7 +668,6 @@
     (uuid c58302fa-24c3-4e0d-b5c7-ef56e440ac4d)
   )
 
-  ;; Header Connections
   (wire (pts (xy 250 800) (xy 1000 3000))
     (stroke (width 0) (type default))
     (uuid b1e2dc77-e3b4-40ac-9a50-505b79dec7e8)
@@ -756,7 +757,6 @@
     (uuid d4dc1fa0-98fe-4c36-b390-d31025eb1fb7)
   )
 
-  ;; FT4232H Power Connections
   (wire (pts (xy 1000 1000) (xy 250 1000))
     (stroke (width 0) (type default))
     (uuid 06eaadc7-2c1a-4293-a40a-ec9f35a17b6c)
@@ -766,7 +766,6 @@
     (uuid f7d84d7e-486c-45df-846d-16b5b43a3e19)
   )
 
-  ;; INA219 Power Connections
   (wire (pts (xy 500 2000) (xy 250 1000))
     (stroke (width 0) (type default))
     (uuid 9a6dc01a-1631-4e6b-a9a2-a831adf67deb)
@@ -784,7 +783,6 @@
     (uuid 6e08e681-300b-4e1c-964d-075f5b634678)
   )
 
-  ;; INA228 Power Connections
   (wire (pts (xy 1500 2000) (xy 250 1000))
     (stroke (width 0) (type default))
     (uuid 60189169-ab56-4783-87a8-d431376320ef)
@@ -802,7 +800,6 @@
     (uuid dacc34dd-7451-42c7-9607-f1d4ea1301a3)
   )
 
-  ;; LED Connections
   (wire (pts (xy 1800 1000) (xy 250 1000))
     (stroke (width 0) (type default))
     (uuid ad5d152e-23fd-416f-b2f6-7ffd194e6a9b)
@@ -817,47 +814,40 @@
   )
 
   
-    ;; I2C Address Selection Connections
-    ;; INA219: A0=GND, A1=GND (address 0x40)
-    ;; INA228: A0=GND, A1=+3V3 (address 0x41)
-    (label "INA219_A0" (at 450 2100 0) (fields_autoplaced)
-      (uuid bdd0ce41-0910-46e8-a292-27ad1e8004c8)
-    )
-    (label "INA219_A1" (at 450 2120 0) (fields_autoplaced)
-      (uuid 72d09679-b3bb-4b89-a72e-ba8b897f789b)
-    )
-    (label "INA228_A0" (at 1450 2100 0) (fields_autoplaced)
-      (uuid b151c2b5-3437-40b3-a553-4e682fe668d1)
-    )
-    (label "INA228_A1" (at 1450 2120 0) (fields_autoplaced)
-      (uuid 39364a37-21bc-4474-8927-e67c67daf4d2)
-    )
-    ;; INA219 address pins to GND
-    (wire (pts (xy 450 2100) (xy 450 2120))
-      (stroke (width 0) (type default))
-      (uuid 20592113-7d2e-4c22-bf4e-e1b224c1005b)
-    )
-    (wire (pts (xy 450 2120) (xy 200 1200))
-      (stroke (width 0) (type default))
-      (uuid 0d4ebe27-cc5e-4122-bc10-f923f2111b05)
-    )
-    
-    ;; INA228 A0 to GND, A1 to +3V3
-    (wire (pts (xy 1450 2100) (xy 200 1200))
-      (stroke (width 0) (type default))
-      (uuid 4cb31c7a-8130-4c48-ac65-b97bd92c60f7)
-    )
-    (wire (pts (xy 1450 2120) (xy 200 1000))
-      (stroke (width 0) (type default))
-      (uuid 7b4c9253-b1ac-4359-ad89-d95fd664981c)
-    )
-    
-    ;; INA228 VBUS pin (optional, can be left floating or connected)
-    (label "INA228_VBUS" (at 1450 2140 0) (fields_autoplaced)
-      (uuid 8db3cf02-3a7c-46c6-a4ba-f4c2846a4886)
-    )
-
-  (sheet_instances
+  (label "INA219_A0" (at 450 2100 0) (fields_autoplaced)
+    (uuid bdd0ce41-0910-46e8-a292-27ad1e8004c8)
+  )
+  (label "INA219_A1" (at 450 2120 0) (fields_autoplaced)
+    (uuid 72d09679-b3bb-4b89-a72e-ba8b897f789b)
+  )
+  (label "INA228_A0" (at 1450 2100 0) (fields_autoplaced)
+    (uuid b151c2b5-3437-40b3-a553-4e682fe668d1)
+  )
+  (label "INA228_A1" (at 1450 2120 0) (fields_autoplaced)
+    (uuid 39364a37-21bc-4474-8927-e67c67daf4d2)
+  )
+  (wire (pts (xy 450 2100) (xy 450 2120))
+    (stroke (width 0) (type default))
+    (uuid 20592113-7d2e-4c22-bf4e-e1b224c1005b)
+  )
+  (wire (pts (xy 450 2120) (xy 200 1200))
+    (stroke (width 0) (type default))
+    (uuid 0d4ebe27-cc5e-4122-bc10-f923f2111b05)
+  )
+  (wire (pts (xy 1450 2100) (xy 200 1200))
+    (stroke (width 0) (type default))
+    (uuid 4cb31c7a-8130-4c48-ac65-b97bd92c60f7)
+  )
+  (wire (pts (xy 1450 2120) (xy 200 1000))
+    (stroke (width 0) (type default))
+    (uuid 7b4c9253-b1ac-4359-ad89-d95fd664981c)
+  )
+  (label "INA228_VBUS" (at 1450 2140 0) (fields_autoplaced)
+    (uuid 8db3cf02-3a7c-46c6-a4ba-f4c2846a4886)
+  )
+  (symbol_instances
+  )
+(sheet_instances
     (path "/00000000-0000-0000-0000-000000000000" (page "1"))
   )
 )
